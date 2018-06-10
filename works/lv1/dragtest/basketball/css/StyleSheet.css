@@ -1,0 +1,15 @@
+#bt1
+{
+	width:100px;
+	height:40px;
+	font-size:20px;
+	background-color:rgba(255,0,0,0.1);
+}
+.ddv
+{
+	width:100px;
+	height:100px;
+	position:absolute;
+	background:url("../images/Basketball2.png") no-repeat center center;
+	background-size:100% 100%;
+}

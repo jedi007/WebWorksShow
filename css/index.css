@@ -1,0 +1,108 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+#header{
+	height: 40px;
+	width: auto;
+	background-color: #006CBF;
+    box-shadow: #888888 0px 2px 1px 1px;//边框阴影
+}
+
+#header>div{
+	height: 40px;
+	width: auto;
+	text-align:center;
+	font-weight: bold;
+    font-family :  '微软雅黑','宋体', 'New York';
+	color : white;
+	font-size: 28px;
+	line-height:40px;
+	text-shadow: 3px 3px 10px black;
+}
+#maindiv{	
+	position: relative;
+	top: 30px;
+	width: 70%;
+	left: 15%;
+	right: 15%;
+}
+
+#lvbtn{
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+li{
+	list-style: none;
+	width: 100px;
+	height: 30px;
+}
+#lvbtn li{
+	float: left;
+	width: 13.5%;
+	height: 26px;
+	text-align:center;
+	line-height:26px;
+	font-family :'New York';
+	color: #0088CC;
+	padding: 2px;
+	border-bottom: solid 1px #DDDDDD;
+}
+
+#lvbtn li.libtn:hover{
+	cursor:pointer;
+}
+#lvbtn li:hover p{
+	background-color: #EEEEEC;
+	border-radius: 3px;
+}
+
+.actived{
+	border-top: solid 1px #DDDDDD;
+	border-left: solid 1px #DDDDDD;
+	border-right: solid 1px #DDDDDD;
+	border-bottom: solid 0px #DDDDDD !important;
+	font-weight: bold;
+	border-top-left-radius: 3px;
+	border-top-right-radius:3px;
+}
+
+/*下面作品列表区样式*/
+.lvdiv{
+	position: relative;
+	border: 1px #DDDDDD solid;
+	display: block;
+	height: 40px;
+	display: none;
+	padding-top: 10px;
+}
+
+.lvdiv li{
+	font-family: '微软雅黑','宋体', 'New York';
+	color: #696969;
+	font-size: 20px;
+	left: 20px;
+	position: absolute;
+	background-color: #F5F5DC;
+	margin-bottom: 4px;
+	border-radius: 4px;
+	width: auto;
+}
+
+.lvdiv li:nth-child(2n){
+	background-color: #AFEEEE;
+}
+
+.lvdiv a{
+	text-decoration:none;
+}
+
+.lvdiv li:hover{
+	background-color:#006CBF;
+	font-weight: bold;
+}
+
+.lvdiv li:hover a{
+	color: white;
+}

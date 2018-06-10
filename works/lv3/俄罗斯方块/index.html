@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/models.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/three-level-button.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function showlv(lv){
+			Degree_Difficulty = 7+lv;
+			
+		}
+		
+		$(function(){
+			var m3lvbtn = new make_3lvbtn($(".lv3btndiv").get(0));
+			m3lvbtn.bindlvindex(showlv);
+			console.log("m3index:"+m3lvbtn.lvindex);
+		});
+		
+		var tBegin = Date.now();
+		var score = 0;
+		var refreshTimeID = null;
+		var FreefallID = null;
+		var FallSpeed = 800;
+		$(function(){
+			refreshTimeID = window.setInterval("refreshTime()",1000);
+			FreefallID = window.setInterval("ondown()",FallSpeed);
+		});
+		window.onload = function (){
+			document.onkeydown = function (e){
+				if(e.keyCode == 38){//up
+					onup();
+				}else if(e.keyCode == 39){//right
+					onright();
+				}else if(e.keyCode == 40){//down
+					ondown();
+				}else if(e.keyCode == 37){//left
+					onleft();
+				}else if(e.keyCode == 32){//space
+					console.log(e.keyCode);
+				}
+			}			
+		}
+		
+		function onup(){
+			var tmpmodel = new modelx();
+			tmpmodel.data = Curmodel.data;
+			tmpmodel.origin = Curmodel.origin;
+			tmpmodel.data = turnright(Curmodel.data);
+			if(!CheckCouldMove(tmpmodel))
+				return;
+				
+			Curmodel.data = tmpmodel.data;	
+			refreshdoneMatrix();
+			loadmodel(Curmodel);
+		}
+		function onright(){
+			Curmodel.origin['y']++;
+			if(!CheckCouldMove(Curmodel))
+			{
+				Curmodel.origin['y']--;
+				return;
+			}
+			refreshdoneMatrix();
+			loadmodel(Curmodel);
+		}
+		function onleft(){
+			Curmodel.origin['y']--;
+			if(!CheckCouldMove(Curmodel))
+			{
+				Curmodel.origin['y']++;
+				return;
+			}	
+			refreshdoneMatrix();
+			loadmodel(Curmodel);
+		}
+		function ondown(){
+			Curmodel.origin['x']++;
+			if(!CheckCouldMove(Curmodel))
+			{
+				Curmodel.origin['x']--;
+			}
+			setTimeout(function(){
+			        CheckDone(Curmodel);
+			    },300);
+			refreshdoneMatrix();
+			loadmodel(Curmodel);
+			//sleep(10000);
+			if(CheckEliminate())
+			{
+				refreshdoneMatrix();
+				loadmodel(Curmodel);
+			}
+			if(CheckGameover(Curmodel))
+			{
+				setTimeout(function(){
+			        alert("Game Over");
+			    },0);
+				return;
+			}
+		}
+	</script>
+	<body>
+		<audio id="snd" src="" controls autoplay style="display: none;"></audio>
+		<div id="gamediv"></div>
+		<div id="next"></div>
+		<div id="info">
+			<div id="time">
+				已用时：<span>0</span>s
+			</div>
+			<div id="score">
+				已得分：<span>0</span>分
+			</div>
+		</div>
+		<div class = "lv3btndiv"></div>
+	</body>
+</html>

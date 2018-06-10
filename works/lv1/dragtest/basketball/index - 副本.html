@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>我的网页</title>		
+		<style>
+			.ddv
+			{
+				width:20px;
+				height:100px;
+				margin:0;
+				position:absolute;
+				background-color:red;
+			}
+		</style>
+	<script type="text/javascript">
+	
+	var oDiv=null;
+	window.onload = function()
+	{
+		oDiv = document.getElementById("div1");
+		oDiv.style.left = '200px';
+		oDiv.style.top = '200px';
+		oDiv.onmouseover=function(ev)
+		{
+			this.style.cursor = 'url(hand_4.ico),auto';
+		}
+		oDiv.onmousedown=function(ev)
+		{
+			this.style.cursor = 'url(hand_5.ico),auto';
+			oDiv.onmouseover=null;
+			
+			var oEvent=ev||event;
+			var disX=oEvent.clientX-oDiv.offsetLeft;
+			var disY=oEvent.clientY-oDiv.offsetTop;
+			
+			document.onmousemove=function(ev)
+			{
+				var oEvent=ev||event;
+				
+				var l=oEvent.clientX-disX;
+				var t=oEvent.clientY-disY;
+				
+				oDiv.style.left=l+'px';
+				oDiv.style.top=t+'px';
+			}
+			
+			document.onmouseup=function()
+			{
+				document.onmousemove=null;
+				document.onmouseup=null;
+				oDiv.onmouseover=function(ev)
+				{
+					this.style.cursor = 'url(hand_4.ico),auto';
+				}
+			}
+		}
+	}
+	
+	</script>
+    </head>
+    <body>
+		<input type="button" value="开始运动" onclick="(function(){iSpeedY=-80;iSpeedX=80;startmove();})()" />
+		<div id="div1" class="ddv"></div>
+		
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>我的网页</title>		
+		<!-- <link id="link1" href="miaov_style.css" rel="stylesheet" type="text/css" /> -->
+		<!-- <script type="text/javascript" src="./js/drag.js"></script>  -->
+		<style>
+		*{padding: 0; margin: 0;}
+		li { list-style: none; }		
+		img { border: 0; }
+		ul {position: absolute;top: 0; left: 0;height:108px;}
+		
+		.roll
+		{
+			width:728px;
+			height:108px;
+			margin:0;
+			padding: 0;
+			position: relative;
+			left:75px;
+			overflow: hidden;
+		}
+		
+		.roll>ul>li
+		{
+			float:left;
+			width: 182px; 
+			height: 108px; 
+			margin:0;
+			padding: 0;
+			text-align: center; 
+		}
+		
+		.roll li a:hover { position: relative; top: 2px; }
+		
+		.btn_left { display: block; width: 68px; height: 68px; background: url(images/btn.jpg) no-repeat -70px -69px; position: absolute; top: 20px; left: 1px; z-index: 1; }
+		.btn_left:hover { background: url(images/btn.jpg) no-repeat -70px 0; }
+		.btn_right { display: block; width: 68px; height: 68px; background: url(images/btn.jpg) no-repeat 1px -69px; position: absolute; top: 20px; right: 0; z-index: 1; }
+		.btn_right:hover { background: url(images/btn.jpg) no-repeat 1px 0; }
+		
+		.global {width: 880px; height: 108px; margin: 50px auto 0; position: absolute;}
+		.control {margin: 50px auto 0; position: absolute;left:400px;top:150px;}
+		#pause_time {margin-right: 50px;}
+		</style>
+		<script src="./js/js.js" type="text/javascript"></script>
+		
+    </head>
+    <body>	
+		<div class="control">
+			<label id="chk_pause"><input type="checkbox" checked="checked">间隔停顿</label>
+			<select id="pause_time">
+				<option value="100">短</option>
+				<option value="1000" selected="selected">中</option>
+				<option value="3000">长</option>
+			</select>
+
+			滚动速度：
+			<select id="sel_speed">
+				<option value="2">慢</option>
+				<option value="5">中</option>
+				<option value="10">快</option>
+			</select>
+		</div>
+		<div class="global">
+			<a href="javascript:void(0);" class="btn_left"></a>
+			<a href="javascript:void(0);" class="btn_right"></a>
+		
+			<div class="roll" id="rolldiv">
+				<ul>
+					<li><a href="index-a.html" target="_blank"><img src="images/1.jpg" /></li>
+					<li><a href="index-a.html" target="_blank"><img src="images/2.jpg" /></li>
+					<li><a href="index-a.html" target="_blank"><img src="images/3.jpg" /></li>
+					<li><a href="index-a.html" target="_blank"><img src="images/4.jpg" /></li>
+				</ul>
+			</div>
+		</div>
+    </body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>PSM-DEMO</title>
+		<style>
+			.datacurve
+			{
+				
+			}
+			.ShieldedWire
+			{
+				
+			}
+			axis text
+			{
+				color:red;
+			}
+			.domain
+			{
+			    stroke:gray;   /*可以通过审查元素查看相关的g标签，每个g标签都加了这两个类，分别对应每个单位坐标，所以定义这两个类的样式就可以设置坐标可视*/
+			    stroke-width:1;
+			}
+			.MyText {
+				text-anchor: start;
+				font-size:15px;
+				font-family:Microsoft YaHei;
+			}
+			#focusXText,#focusYText{
+				text-anchor: start;
+				font-size:12px;
+				font-family:Microsoft YaHei;
+				fill:black;
+			}
+			.focusLine {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 0.5px;
+			}
+			#focusRect {
+            fill: none;
+			stroke: steelblue;
+            stroke-width: 1px;
+			}
+			.circle {
+            fill: white;
+            stroke: steelblue;
+            stroke-width: 2px;
+			}
+			.focusCircle {
+				fill: red;
+			}
+		</style>
+		<script src="include/d3-v4.13.0/d3.js" charset="utf-8"></script>
+    </head>
+    <body>
+		<script>
+			var dataset=[  
+			{  
+				CurveName:"Sleep State", 
+				points:[[100,1],[200,2],[300,3],[400,1],[500,2],[600,1],[700,2],[800,3],[900,1],[1000,4],
+						[1100,1],[1200,2],[1300,2],[1400,2],[1500,1],[1600,3],[1700,1],[1800,1],[1900,2],[2000,2]]
+			},  
+			{  
+				CurveName:"Cardiac cycle",  
+				points:[[200,56],[400,79],[600,76],[800,62],[1000,67],[1200,59],[1400,72],[1600,74],[1800,60],[2000,66]]  
+			},
+			{  
+				CurveName:"Shielded Wire",  
+				points:[[0,50],[2000,50]]  
+			}, 
+			{  
+				CurveName:"Shielded Wire",  
+				points:[[0,100],[2000,100]]  
+			}			
+			];  
+		</script> 
+		<script>  
+			console.log(d3.version);
+			var width=1000;  
+			var height=500;
+			var padding={top:70, right:70, bottom: 70, left:70};  
+			//定义两个颜色  
+			var colors=d3.schemeCategory10;//d3.rgb(0,0,255),d3.rgb(0,255,0)]; 
+			//定义Y轴显示内容
+			var yAxislabel=["","Stable","Unstable","REM","Wake","55","60","65","70","75","80"];
+			//定义曲线名称
+			var CarveLabel_data=["睡眠状态","心动周期"];
+			
+			var body = d3.select('body');
+			var svg = body.append('svg').attr('width',width).attr('height',height);	
+			
+			var collection_array = d3.values(dataset.time);
+			var xmin=0;
+			var xmax=0;
+			for(var i=0;i<dataset.length;i++)
+			{  
+				var currmin=d3.min(dataset[i].points,function(d){return d[0];});  
+				if(currmin<xmax)  
+					xmin=currmin;  
+			} 									
+			for(var i=0;i<dataset.length;i++)
+			{  
+				var currmax=d3.max(dataset[i].points,function(d){return d[0];});  
+				if(currmax>xmax)  
+					xmax=currmax;  
+			}  
+			
+			var xScale=d3.scaleLinear()  //创建X轴比例尺
+            .domain([xmin,xmax])  
+            .range([0,width-padding.left-padding.right]); 
+			
+			var yScale=d3.scaleLinear()  //创建Y轴比例尺
+            .domain([0,100])  
+            .range([height-padding.bottom-padding.top,0]);
+			
+			var linePath_SleepState=d3.line()//创建一个直线生成器  
+                .x(function(d){  
+					console.log(d);
+                    return xScale(d[0]);  
+                })  
+                .y(function(d){ 
+					switch(d[1])
+					{
+						case 1:return yScale(10);
+						case 2:return yScale(20);
+						case 3:return yScale(30);
+						case 4:return yScale(40);
+					}  
+                })
+				.curve(d3.curveStep);//插值模式
+				
+			var linePath_CardiacCycle=d3.line()//创建一个Cardiac cycle直线生成器  
+                .x(function(d){  
+					console.log(d);
+                    return xScale(d[0]);  
+                })  
+                .y(function(d){ 
+					return yScale((d[1]-55)/25*50+50);
+                });  
+            
+			var linePath_ShieldedWire=d3.line()//创建一个ShieldedWire(隔离线)直线生成器  
+                .x(function(d){  
+					return xScale(d[0]);  
+                })  
+                .y(function(d){ 
+					return yScale(d[1]);
+                });
+				//.curve(d3.curveNatural);
+				
+			var focus = svg.append('g').style('display', 'none');
+                
+            focus.append('line')
+                .attr('id', 'focusLineX')
+                .attr('class', 'focusLine');
+            focus.append('line')
+                .attr('id', 'focusLineY')
+                .attr('class', 'focusLine');
+            focus.append('circle')
+                .attr('id', 'focusCircle')
+                .attr('r', 5)
+                .attr('class', 'circle focusCircle');
+			focus.append("text")
+				.attr("id","focusXText")
+				.attr("x",100)
+				.attr("y",100)
+				.attr("dx",0)
+				.attr("dy",0)
+				.text("test");
+			
+			focus.append("text")
+				.attr("id","focusYText")
+				.attr("x",100)
+				.attr("y",200)
+				.attr("dx",0)
+				.attr("dy",0)
+				.text("test");
+				
+			focus.append("rect")
+				.attr("id","focusRect")
+				.attr("width",80)
+				.attr("height",50);
+				
+				
+				
+				
+			svg.append("path").attr("class","datacurve");
+			svg.append("path").attr("class","datacurve");
+			svg.append("path").attr("class","ShieldedWire");
+			svg.append("path").attr("class","ShieldedWire");
+			
+			var s = svg.selectAll("path.datacurve");
+			console.log(s);
+					
+			svg.selectAll("path")  //添加形状模块到SVG画布
+			.data(dataset)    
+			.attr("transform","translate("+padding.left+","+padding.top+")")  
+			.attr("d",function(d){  
+				if(d.CurveName=="Sleep State")
+				{
+					console.log("----------------------\n"+d);
+					return linePath_SleepState(d.points);  
+					//返回线段生成器得到的图形 
+				}
+				if(d.CurveName=="Cardiac cycle")
+				{
+					console.log("----------------------\n"+d);
+					return linePath_CardiacCycle(d.points);
+				}
+				if(d.CurveName=="Shielded Wire")
+				{
+					return linePath_ShieldedWire(d.points);
+				}
+			})  
+			.attr("fill","none")  
+			.attr("stroke-width",2)  
+			.attr("stroke",function(d,i){
+				return colors[i];  
+			})
+			.on("mousemove",function(d,i){
+										var tx= d3.mouse(this)[0];
+										var ty= d3.mouse(this)[1];
+										var tips=svg.append("g")
+													.attr("id","tips");
+										console.log("------  tx:"+tx+"   ty:"+ty);
+										
+										var mouse = d3.mouse(this);
+										var mouseXDate = xScale.invert(mouse[0]);
+										var mouseYDate = yScale.invert(mouse[1]);
+										
+										console.log("mouseXDate:"+mouseXDate+"     mouseYDate:"+mouseYDate);
+										//var i = d3.bisect(d.points, mouseXDate);
+										var bisect = d3.bisector(function(d) { return d[0]; }).right;
+										var i = bisect(d.points,mouseXDate);
+										console.log("i:"+i);
+										
+										var dp = d.points[i];
+										console.log("d.CurveName:"+d.CurveName)
+										var x = xScale(dp[0]);
+										var ytmp = 0;
+										if(d.CurveName=="Sleep State")
+											ytmp=dp[1]*10;
+										else if(d.CurveName=="Cardiac cycle")
+											ytmp=(dp[1]-55)/25*50+50;
+										var y = yScale(ytmp);
+										
+										console.log("dp[0]:"+dp[0]+"   ytmp:"+ytmp+"     ---------x:"+x+"    y:"+y);
+										
+										//var circleX = x+padding.left;//以数据原点为显示红点
+										//var circleY = y+padding.top;
+										var circleX = tx+padding.left;//以鼠标指针点为显示红点
+										var circleY = ty+padding.top;
+										
+										focus.style('display', null);
+										focus.select('#focusCircle')
+											.attr('cx', circleX)
+											.attr('cy', circleY);
+										focus.select('#focusLineX')
+											.attr('x1', circleX).attr('y1', yScale(0)+padding.top)
+											.attr('x2', circleX).attr('y2', yScale(100)+padding.top);
+										focus.select('#focusLineY')
+											.attr('x1', xScale(0)+padding.left).attr('y1', circleY)
+											.attr('x2', xScale(2000)+padding.left).attr('y2', circleY);
+										focus.select('#focusXText')
+											.attr('x',circleX+20)
+											.attr('y',circleY-40)
+											.text("X值：" + Math.round(mouseXDate));
+										focus.select('#focusYText')
+											.attr('x',circleX+20)
+											.attr('y',circleY-20)
+											.text("Y值：" + Math.round(mouseYDate));
+										focus.select('#focusRect')											
+											.attr('x',circleX+10)
+											.attr('y',circleY-60);
+										
+										<!-- console.log(d3.select("#focusCircle")); -->
+										<!-- d3.select("#focusCircle") -->
+											<!-- //.attr("cx", tx+padding.left) -->
+											<!-- //.attr("cy", ty+padding.top) -->
+											<!-- .attr("cx", x+padding.left) -->
+											<!-- .attr("cy", y+padding.top) -->
+											<!-- .style("fill","rgba(255,0,0,1)");	 -->
+										}
+				)
+			.on("mouseout",function(d,i){
+										focus.style('display', 'none');		
+										}
+				);
+			
+			svg.selectAll("path.ShieldedWire")
+			.style("stroke-dasharray","5 5")   //设置虚线，虚实部分比例5:5
+			.attr("stroke","rgba(0,0,0,0.9)")
+			.attr("stroke-width",0.5);
+			
+			var xAxis=d3.axisBottom(xScale)
+				//.tickValues([200,400,600])   //设置坐标轴显示指定刻度值
+				.tickFormat(function (d){
+				return d;
+				})
+				.tickPadding(20)//设置坐标轴刻度值文本离轴线距离
+				.tickSizeOuter(0);
+  
+			var yAxis=d3.axisLeft(yScale)
+			.tickFormat(function (d){
+				return yAxislabel[d/10];}
+				)
+			.tickPadding(60)   //设置坐标轴刻度值文本离轴线距离,与.style("text-anchor", "start");联合使用设置左对齐
+			.tickSizeOuter(0);
+			
+			//添加文字元素
+			var texts = svg.selectAll(".MyText")	
+				.data(CarveLabel_data)
+				.enter()
+				.append("text")
+				.attr("class","MyText")
+				.attr("transform","translate(" + padding.left + "," + padding.top + ")")
+				.attr("x",xScale(xmax/25))
+				.attr("y",function(d,i){
+				switch(i)
+				{
+					case 0:return yScale(45);
+					case 1:return yScale(95);
+				}})
+				.attr("dx",0)
+				.attr("dy",0)
+				.text(function(d,i){return d;})
+				.style("text-anchor", "start")
+				.attr("fill",function(d,i){return colors[i];});
+				
+			//console.log();
+			
+			//添加一个g用于放x轴  
+			svg.append("g")  
+				.attr("class","axis")
+				.attr("id","xaxis")				
+				.attr("transform","translate("+padding.left+","+(height-padding.top)+")")  
+				.call(xAxis)
+				.selectAll("text")
+				//旋转x轴label
+				.attr("transform", "rotate(30)")
+				.style("text-anchor", "start");
+				
+				console.log(svg.select("#xaxis").select(".domain"));
+				//svg.select("#xaxis").select(".domain").remove();
+			  
+			svg.append("g")  
+				.attr("class","axis")  
+				.attr("transform","translate("+padding.left+","+padding.top+")")  
+				.call(yAxis)
+				.selectAll("text") 
+				.attr("font-size","12")
+				.attr("fill",function(d,i){
+				if(i<5)
+				return colors[0]; 
+				else
+				return colors[1];	
+				})
+				.style("text-anchor", "start");
+        </script> 
+    </body>
+</html>

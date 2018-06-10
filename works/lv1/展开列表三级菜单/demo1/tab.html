@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>展开列表</title>
+<style type="text/css">
+* { padding: 0; margin: 0; }
+li {list-style:none;}
+
+#Biggest:hover {cursor : url(./images/hand.ico),auto;}
+
+#leftlist>li {height:40px;width:298px;border:red 1px solid;margin-bottom:1px;text-align:center;line-height:40px;font-weight:bold;}
+#leftlist li:hover {background-color:#8DEEEE;}
+
+#Biggest {position:relative;margin:100px 10px 10px 200px;}
+#tab1 {width:300px;height:500px;background-color:rgba(255,222,173,255);position:relative;float:left;}
+#tab2 {width:700px;height:500px;background-color:rgba(155,205,155,255);position:relative;float:left;}
+
+.left_list_content {display:none;}
+.left_list_content>li {height:30px;width:298px;margin-bottom:1px;text-align:center;line-height:30px;background-color:#B0E0E6;}
+
+
+
+#rightlist>li {height:40px;width:230px;border:red 1px solid;margin-left:1px;text-align:center;line-height:40px;font-weight:bold;float:left;}
+.right_list_ul {display:none;}
+.line {width:226px;height:5px;background-color:rgba(255,222,173,0);display:none;}
+.firstmenue:hover>* {display:block;}
+.firstmenue:hover>p {background-color:#8DEEEE;}
+.firstmenue>p {height:40px;width:230px;background-color:red;}
+
+.lv1a {background-color:yellow;width:226px;height:40px;display:block;float:left;text-decoration: none;}
+.lv1a:hover {background-color:#FFE4C4;}
+
+.right_content_ul {width:200px;background-color:#B0E0E6;position:absolute;left:226px;display:none;}
+
+.right_list_ul>li {position:relative;}
+.right_list_ul>li:hover ul {display:block;}
+</style>
+<!-- 这里需要注意的是一级菜单列表的定位方式要设置为relative,二级菜单列表的定位方式要设置为absolute，这样二级菜单才会在一级菜单相对的位置出现。 -->
+<!-- 然后通过display这个属性控制二级菜单的显示和隐藏就可以了。 -->
+
+
+<script src="./js/js.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+	<div id = "Biggest">
+		<div id="tab1">
+			<ul id="leftlist">
+				<li class="Ltitle">各种动物</li>
+					<ul class="left_list_content">
+						<li>老虎</li>
+						<li>狮子</li>
+						<li>大象</li>
+						<li>鳄鱼</li>
+						<li>斑马</li>
+					</ul>
+				<li class="Ltitle">各种植物</li>
+					<ul class="left_list_content">
+						<li>椰子树</li>
+						<li>火焰木</li>
+						<li>槟榔树</li>
+					</ul>
+				<li class="Ltitle">各种行星</li>
+					<ul class="left_list_content">
+						<li>天王星</li>
+						<li>海王星</li>
+						<li>冥王星（？）</li>
+						<li>地球</li>
+						<li>火星</li>
+					</ul>
+				<li class="Ltitle">各种金属</li>
+					<ul class="left_list_content">
+						<li>金</li>
+						<li>银</li>
+						<li>铜</li>
+						<li>铁</li>
+						<li>铝</li>
+					</ul>
+				<li class="Ltitle">各种手机</li>
+					<ul class="left_list_content">
+						<li>华为</li>
+						<li>小米</li>
+						<li>联想</li>
+						<li>三星</li>
+						<li>苹果</li>
+						<li>一加</li>
+					</ul>
+			</ul>
+		</div>
+		<div id="tab2">
+			<ul id="rightlist">
+				<li>
+					<div class = "firstmenue">
+						<p class = "right_p">各种动物</p>
+						<div class = "line"></div>
+						<ul class="right_list_ul">
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">老虎&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:0px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">老虎的习性</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">老虎的生活环境</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">老虎的饮食习惯</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">老虎的捕猎技巧</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">老虎的领地意识</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">狮子&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:40px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">狮子的习性</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">狮子的生活环境</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">狮子的饮食习惯</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">狮子的捕猎技巧</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">狮子的领地意识</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">大象&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:80px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">大象的习性</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">大象的生活环境</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">大象的饮食习惯</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">大象的捕猎技巧</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">大象的领地意识</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">鳄鱼&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:120px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">鳄鱼的习性</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">鳄鱼的生活环境</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">鳄鱼的饮食习惯</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">鳄鱼的捕猎技巧</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">鳄鱼的领地意识</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">斑马&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:160px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">斑马的习性</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">斑马的生活环境</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">斑马的饮食习惯</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">斑马的捕猎技巧</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">斑马的领地意识</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class = "firstmenue">
+						<p class = "right_p">各种行星</p>
+						<div class = "line"></div>
+						<ul class="right_list_ul">
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">天王星&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:0px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">天王星的轨道</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">天王星的半径</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">天王星的卫星</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">海王星&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:40px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">海王星的轨道</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">海王星的半径</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">海王星的卫星</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">火星&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:80px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">火星的轨道</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">火星的半径</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">火星的卫星</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class = "firstmenue">
+						<p class = "right_p">各种手机</p>
+						<div class = "line"></div>
+						<ul class="right_list_ul">
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">小米&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:0px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">小米的外观</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">小米的性能</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">魅族&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:40px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">魅族的外观</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">魅族的性能</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">华为&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:80px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">华为的外观</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">华为的性能</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">苹果&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:120px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">苹果的外观</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">苹果的性能</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">三星&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:160px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">三星的外观</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">三星的性能</a></li>
+								</ul>
+							</li>
+							<li>
+								<a class="lv1a" href="index-a.html" target="blank">一加&nbsp;&nbsp;&nbsp;&nbsp;-></a>
+								<ul class="right_content_ul" style="top:200px">
+									<li><a class=“lv2a” href="index-a.html" target="blank">一加的外观</a></li>
+									<li><a class=“lv2a” href="index-a.html" target="blank">一加的性能</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
