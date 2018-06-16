@@ -9,6 +9,7 @@
     box-shadow: #888888 0px 2px 1px 1px;//边框阴影
 }
 
+
 #header>div{
 	height: 40px;
 	width: auto;
@@ -19,7 +20,10 @@
 	font-size: 28px;
 	line-height:40px;
 	text-shadow: 3px 3px 10px black;
+	cursor:pointer;
 }
+
+
 #maindiv{	
 	position: relative;
 	top: 30px;
