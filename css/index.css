@@ -2,6 +2,8 @@
 	padding: 0;
 	margin: 0;
 }
+
+/*标题样式*/
 #header{
 	height: 40px;
 	width: auto;
@@ -9,8 +11,9 @@
     box-shadow: #888888 0px 2px 1px 1px;//边框阴影
 }
 
-
-#header>div{
+h1{
+	cursor:pointer;
+	
 	height: 40px;
 	width: auto;
 	text-align:center;
@@ -20,10 +23,9 @@
 	font-size: 28px;
 	line-height:40px;
 	text-shadow: 3px 3px 10px black;
-	cursor:pointer;
 }
 
-
+/*显示区域样式*/
 #maindiv{	
 	position: relative;
 	top: 30px;
@@ -44,14 +46,16 @@ li{
 }
 #lvbtn li{
 	float: left;
-	width: 13.5%;
+	width: 14.2%;
 	height: 26px;
 	text-align:center;
 	line-height:26px;
 	font-family :'New York';
 	color: #0088CC;
-	padding: 2px;
 	border-bottom: solid 1px #DDDDDD;
+	padding: 2px;
+	
+	box-sizing: border-box;/*为元素设定的宽度和高度决定了元素的边框盒,将border的宽度也计入width*/
 }
 
 #lvbtn li.libtn:hover{
