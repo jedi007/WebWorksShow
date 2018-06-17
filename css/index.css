@@ -46,10 +46,10 @@ li{
 }
 #lvbtn li{
 	float: left;
-	width: 14.2%;
+	width: 14.28%;
 	height: 26px;
 	text-align:center;
-	line-height:26px;
+	line-height:21px;
 	font-family :'New York';
 	color: #0088CC;
 	border-bottom: solid 1px #DDDDDD;
