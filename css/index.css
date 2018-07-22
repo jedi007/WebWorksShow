@@ -15,7 +15,9 @@ h1{
 	cursor:pointer;
 	
 	height: 40px;
-	width: auto;
+	width: 180px;
+	margin-left: auto;
+	margin-right: auto;
 	text-align:center;
 	font-weight: bold;
     font-family :  '微软雅黑','宋体', 'New York';

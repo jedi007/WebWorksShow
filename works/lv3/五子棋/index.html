@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<style>
+		#chessboard{
+			display: block;
+			margin-left: auto; 
+			margin-right: auto;
+			width: 840px;
+			height: 640px;
+			border: 4px solid #FFE4B5;
+			box-shadow: 8px 8px 8px #999;
+		}
+		svg{
+			width: 640px;
+			height: 640px;
+			float: left;
+		}
+		#infobord{
+			width: 150px;
+			height: 600px;
+			float: left;
+			position: relative;
+			left: 50px;
+			top: 40px;
+		}
+		h1{
+			margin-left: auto; 
+			margin-right: auto;
+			color: red;
+			width: 212px;
+		}
+		h2{
+			margin-left: auto; 
+			margin-right: auto;
+			width: 220px;
+		}
+		#AgainBtn{
+			display: block;
+			margin-left: auto; 
+			margin-right: auto;
+			width: 100px;
+			height: 50px;
+			font-size: 20px;
+			font-weight: 600;
+		}
+		
+		.nextinfoboard span{
+			position: relative;
+			left: 20px;
+			display: inline-block;
+			height: 40px;
+			width: 40px;
+			border: 1px solid black;
+			border-radius:20px;
+			background-color: black;
+		}
+		
+		.controlboard{
+			margin-top: 20px;
+		}
+	</style>
+	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/init.js"></script>
+	<body>
+		<h2>五子棋对战 人VS人</h2>
+		<div id = "chessboard">
+			<svg  transform="translate(0.5 0.5)"> <!--加上才能显示线的宽度为1px-->
+				<g></g>
+			</svg>
+			<div id = "infobord">
+				<div class="nextinfoboard">
+					<span></span>
+				</div>
+				<div class="timeboard">
+					<p>总局时：</p><span></span>
+					<p>黑方用时：</p><span></span>
+					<p>白方用时：</p><span></span>
+				</div>
+				<div class="controlboard">
+					<button>悔棋</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
