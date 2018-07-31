@@ -95,9 +95,10 @@ li{
 	left: 20px;
 	position: absolute;
 	background-color: #F5F5DC;
-	margin-bottom: 4px;
+	margin-bottom: 8px;
 	border-radius: 4px;
 	width: auto;
+	box-shadow: 2px 2px 2px #999;
 }
 
 .lvdiv li:nth-child(2n){

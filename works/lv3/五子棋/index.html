@@ -5,85 +5,59 @@
 		<title></title>
 	</head>
 	<style>
-		#chessboard{
-			display: block;
-			margin-left: auto; 
-			margin-right: auto;
-			width: 840px;
-			height: 640px;
-			border: 4px solid #FFE4B5;
-			box-shadow: 8px 8px 8px #999;
+		*{
+			margin: 0;
+			padding: 0;
 		}
-		svg{
-			width: 640px;
-			height: 640px;
-			float: left;
-		}
-		#infobord{
-			width: 150px;
-			height: 600px;
-			float: left;
+		#main{
 			position: relative;
-			left: 50px;
-			top: 40px;
-		}
-		h1{
-			margin-left: auto; 
-			margin-right: auto;
-			color: red;
-			width: 212px;
-		}
-		h2{
-			margin-left: auto; 
-			margin-right: auto;
-			width: 220px;
-		}
-		#AgainBtn{
-			display: block;
-			margin-left: auto; 
-			margin-right: auto;
-			width: 100px;
-			height: 50px;
-			font-size: 20px;
-			font-weight: 600;
+			margin: auto;
+			width: 400px;
+			height: 200px;
+			top:200px;
 		}
 		
-		.nextinfoboard span{
-			position: relative;
-			left: 20px;
+		li{
+			list-style: none;
+			float: left;
+			margin-right: 20px;
+			
+		}
+		
+		a{
 			display: inline-block;
-			height: 40px;
-			width: 40px;
-			border: 1px solid black;
-			border-radius:20px;
-			background-color: black;
+			
+			text-decoration:none;
+			font-size: 40px;
+			text-align: center;
+			font-family: "arial, helvetica, sans-serif";
+			text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+			padding: 3px;
+			
+			border: 3px solid;
+			border-color: #fff #aaab9c #aaab9c #fff;
+						
+			background-color: #f99;
+			color:#444;
+			
+			cursor: pointer;
 		}
 		
-		.controlboard{
-			margin-top: 20px;
+		a:active{
+			position: relative;
+			top:3px;
+			
+			border: 3px solid;
+			border-color: #aaab9c #fff #fff #aaab9c;
 		}
+
 	</style>
-	<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/init.js"></script>
 	<body>
-		<h2>五子棋对战 人VS人</h2>
-		<div id = "chessboard">
-			<svg  transform="translate(0.5 0.5)"> <!--加上才能显示线的宽度为1px-->
-				<g></g>
-			</svg>
-			<div id = "infobord">
-				<div class="nextinfoboard">
-					<span></span>
-				</div>
-				<div class="timeboard">
-					<p>总局时：</p><span></span>
-					<p>黑方用时：</p><span></span>
-					<p>白方用时：</p><span></span>
-				</div>
-				<div class="controlboard">
-					<button>悔棋</button>
-				</div>
-			</div>
+		<div id = "main">
+			<ul>
+				<li><a href="人人对战/index.html">人人对战</a></li>
+				<li><a href="人机对战/index.html">人机对战</a></li>
+			</ul>
 		</div>
 	</body>
 </html>
