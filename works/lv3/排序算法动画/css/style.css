@@ -1,0 +1,25 @@
+li{
+	list-style: none;
+}
+.column{
+	width:20px;
+	height:100%;
+	background:#cccccc;
+	margin:0 1px;
+	
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	
+}
+.column:hover{background:#f30;}
+.active{background:#888888}
+.focus{background:#ffcccc;}
+.highlight{background:#ff6666}
+#sortAnimateBox{
+	margin-top: 50px;
+	position: relative;	
+}
+		
+.actioning{background-color: red;}

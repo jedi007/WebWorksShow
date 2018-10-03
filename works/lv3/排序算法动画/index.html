@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>排序算法动画演示</title>
+<link rel="stylesheet" href="css/style.css" />
+<script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/BaseUIaction.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/SortAnimateBox.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bubble.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div style="margin:50px;">
+    <h1>排序算法动画演示</h1>
+    <div>
+        <p> 动画速度：
+            <input value="150" max="200" min="1" id="speed" type="range" onchange="changeSpeed(200-this.value)" >
+        </p>
+        <p> 数组长度：
+            <input value="10" width="50" id="arrlen">
+            <input type="button" value="随机数组" onclick="randomArrayText(document.getElementById('arrlen').value)" class="btn" />
+        </p>
+        <p> 待排序数组：
+            <input id="arrayText" value="" style="width:80%;">
+        </p>
+        <p></p>
+    </div>
+    <div>
+        <input type="button" value="冒泡排序" onclick="bubbleSortAnimate(SortArr)" class="btn" />
+        <input type="button" value="快速排序" onclick="playSortAnimate(sortMethodMap.quick)" class="btn" />
+        <input type="button" value="插入排序" onclick="playSortAnimate(sortMethodMap.insert)" class="btn" />
+        <input type="button" value="希尔排序" onclick="playSortAnimate(sortMethodMap.shell)" class="btn" />
+        <input type="button" value="选择排序" onclick="playSortAnimate(sortMethodMap.selection)" class="btn" />
+        <input type="button" value="鸡尾酒排序" onclick="playSortAnimate(sortMethodMap.cocktail)" class="btn" />
+        <input type="button" value="奇偶排序" onclick="playSortAnimate(sortMethodMap.oddEven)" class="btn" />
+        <input type="button" value="梳排序" onclick="playSortAnimate(sortMethodMap.comb)" class="btn" />
+    </div>
+    <div>
+        <ul class="sort-animate-box" id="sortAnimateBox" style="height:300px;"></ul>
+        <div id="sortText"></div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		Speed = 500;
+		randomArrayText($("#arrlen").val());
+		
+	});
+	
+	function changeSpeed(speedi){
+		console.log("speedi is: " + speedi);
+		Speed = speedi/200 * 1200;
+		if(speedi < 10)
+			delaySpeed = 150;
+		else if(speedi < 20)
+			delaySpeed = 200;
+		else if(speedi < 30)
+			delaySpeed = 220;
+		else if(speedi < 40)
+			delaySpeed = 250;
+		else if(speedi < 70)
+			delaySpeed = 300;
+		else if(speedi < 100)
+			delaySpeed = 500;
+		else
+			delaySpeed = 700;
+			
+		console.log("delaySpeed is: " + delaySpeed);
+	}
+		
+</script>
+</div>
+</body>
+</html>
