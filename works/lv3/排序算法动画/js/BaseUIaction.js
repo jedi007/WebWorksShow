@@ -1,5 +1,5 @@
-var Speed = 1200;
-var delaySpeed = 300;
+var Speed = 300;
+var delaySpeed = 150;
 
 var delaytime = 0;
 

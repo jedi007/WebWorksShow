@@ -14,7 +14,7 @@
     <h1>排序算法动画演示</h1>
     <div>
         <p> 动画速度：
-            <input value="150" max="200" min="1" id="speed" type="range" onchange="changeSpeed(200-this.value)" >
+            <input value="180" max="200" min="1" id="speed" type="range" onchange="changeSpeed(200-this.value)" >
         </p>
         <p> 数组长度：
             <input value="10" width="50" id="arrlen">
@@ -42,7 +42,7 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		Speed = 500;
+		Speed = 100;
 		randomArrayText($("#arrlen").val());
 		
 	});
