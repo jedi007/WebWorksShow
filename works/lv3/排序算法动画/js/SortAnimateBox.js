@@ -3,6 +3,7 @@ var SortArr = [];
 
 function randomArrayText( len ){
 	clearSortArrayBar();
+	AllBtnabled();
 	$("#sortText").html("等待选择排序算法");
 		
 	len = len || 50;
@@ -42,3 +43,13 @@ function newSortArrayBar(){
 function getColumn( indexi, number, len){
 	return '<li class="column" style="height:'+parseInt(number/len*100)+'%;left:' + indexi*27 + 'px;" title="'+ number +'" data-val="'+ number +'" >' + number + '</li>';
 };
+
+function AllBtnUnabled(){
+	$("input.sortBtn").attr('disabled',true);
+	$("input[type = range]").attr('disabled',true);
+}
+
+function AllBtnabled(){
+	$("input.sortBtn").attr('disabled',false);
+	$("input[type = range]").attr('disabled',false);
+}

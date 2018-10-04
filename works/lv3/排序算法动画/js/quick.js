@@ -1,4 +1,5 @@
 function quickSortAnimate(array){
+	AllBtnUnabled();
 	$("#sortText").html("快速排序");
 	
 	if(array.length == 0){
@@ -61,12 +62,6 @@ function quickSortAnimate(array){
 		Sort(i+1, right);
 	}
 	
-	
-	console.log("before quickSort array -------------------------------");
-	console.log(array);
 	Sort(i, j);
-	console.log("after quickSort array -------------------------------");
-	console.log(array);
-	
 	return array;
 }

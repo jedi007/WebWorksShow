@@ -1,7 +1,5 @@
 function bubbleSortAnimate(array){
-	console.log("show array in bubble Speed is: " + Speed);
-	console.log(array);
-	
+	AllBtnUnabled();
 	$("#sortText").html("冒泡排序");
 	
 	var len = array.length,i,j;
