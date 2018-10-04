@@ -7,8 +7,9 @@
 <script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/BaseUIaction.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/SortAnimateBox.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/bubble.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/quick.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bubbleSort.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/quickSort.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/insertSort.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div style="margin:50px;">
@@ -29,7 +30,7 @@
     <div>
         <input class="btn sortBtn" type="button" value="冒泡排序" onclick="bubbleSortAnimate(SortArr)" />
         <input class="btn sortBtn" type="button" value="快速排序" onclick="quickSortAnimate(SortArr)" />
-        <input class="btn sortBtn" type="button" value="插入排序" onclick="playSortAnimate(sortMethodMap.insert)" />
+        <input class="btn sortBtn" type="button" value="插入排序" onclick="insertionSortAnimate(SortArr)" />
         <input class="btn sortBtn" type="button" value="希尔排序" onclick="playSortAnimate(sortMethodMap.shell)" />
         <input class="btn sortBtn" type="button" value="选择排序" onclick="playSortAnimate(sortMethodMap.selection)" />
         <input class="btn sortBtn" type="button" value="鸡尾酒排序" onclick="playSortAnimate(sortMethodMap.cocktail)" />

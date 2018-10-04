@@ -5,6 +5,7 @@ function randomArrayText( len ){
 	clearSortArrayBar();
 	AllBtnabled();
 	$("#sortText").html("等待选择排序算法");
+	$("#sortDescribe>p").html("");
 		
 	len = len || 50;
 	SortArr.splice(0,SortArr.length);
