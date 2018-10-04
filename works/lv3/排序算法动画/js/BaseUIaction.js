@@ -5,6 +5,9 @@ var delaytime = 0;
 
 
 function UIswap(Lnumber, Rnumber){
+	if(Lnumber == Rnumber)
+		return;
+	
 	setTimeout(function(){
 		console.log("----------------swap is runing");
 	
@@ -58,4 +61,32 @@ function actioningone(number){
 
 function unactioningone(number){
 	$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("actioning");	
+}
+
+function UItagone(number){
+	setTimeout(function(){
+		$('#sortAnimateBox>li[data-val="' + number + '"]').addClass("tagone");
+	},delaytime);
+	delaytime += delaySpeed;
+}
+
+function UIuntagone(number){
+	setTimeout(function(){
+		$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("tagone");
+	},delaytime);
+	delaytime += delaySpeed;
+}
+
+function UItagLR(number){
+	setTimeout(function(){
+		$('#sortAnimateBox>li[data-val="' + number + '"]').addClass("tagLR");
+	},delaytime);
+	delaytime += delaySpeed;
+}
+
+function UIuntagLR(number){
+	setTimeout(function(){
+		$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("tagLR");
+	},delaytime);
+	delaytime += delaySpeed;
 }
