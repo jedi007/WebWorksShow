@@ -1,6 +1,3 @@
-li{
-	list-style: none;
-}
 .column{
 	width:20px;
 	height:100%;
@@ -20,6 +17,14 @@ li{
 #sortAnimateBox{
 	margin-top: 50px;
 	position: relative;	
+}
+
+#sortAnimateBox>li{
+	list-style: none;
+}
+
+#sortDescribe{
+	margin-top: 100px;
 }
 
 .tagone{background-color: #FFE4B5;}
