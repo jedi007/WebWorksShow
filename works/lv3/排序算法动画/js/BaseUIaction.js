@@ -79,3 +79,56 @@ function UIuntagLR(number){
 	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;
 }
+
+function UIpopout(number){
+	let jdom = $('#sortAnimateBox>li[data-val="' + number + '"]');
+	
+	let originalTop = jdom.css("top");
+	jdom.get(0).originalTop = originalTop;
+	
+	var timeoutID = setTimeout(function(){
+		jdom.animate({top:"350px"}, Speed);
+	},delaytime);
+	TimeOutIDs.push(timeoutID);
+	delaytime += Speed + 50;
+}
+
+function UIpushback(number){
+	let jdom = $('#sortAnimateBox>li[data-val="' + number + '"]');
+	let originalTop = jdom.get(0).originalTop;
+	
+	var timeoutID = setTimeout(function(){
+		jdom.animate({top:originalTop}, Speed);
+	},delaytime);
+	TimeOutIDs.push(timeoutID);
+	delaytime += Speed + 50;
+}
+
+function UIswapHorizontal(Lnumber, Rnumber){
+	if(Lnumber == Rnumber)
+		return;
+	
+	var timeoutID = setTimeout(function(){
+		console.log("----------------swap is runing");
+	
+		let leftD  = $('#sortAnimateBox>li[data-val="' + Lnumber + '"]');
+		let rightD = $('#sortAnimateBox>li[data-val="' + Rnumber + '"]');
+		let originalLeft   = leftD.css("left");
+		let originalRight  = rightD.css("left");
+		
+		leftD.addClass("active");
+		rightD.addClass("active");
+		
+		leftD.animate({left: originalRight}, Speed, function(){
+			rightD.animate({left: originalLeft}, Speed, function(){
+				leftD.removeClass("active");
+				rightD.removeClass("active");
+			});
+		});
+		
+	},delaytime);
+	
+	TimeOutIDs.push(timeoutID);
+	
+	delaytime += Speed*2+100;
+}

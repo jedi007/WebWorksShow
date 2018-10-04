@@ -9,10 +9,14 @@ function insertionSortAnimate(arr) {
     for (var i = 1; i < len; i++) {
         preIndex = i - 1;
         current = arr[i];
+        UIpopout(current);
         while (preIndex >= 0 && arr[preIndex] > current) {
+        	UIswapHorizontal(arr[preIndex], current);
+        	
             arr[preIndex + 1] = arr[preIndex];
             preIndex--;
         }
+        UIpushback(current);
         arr[preIndex + 1] = current;
     }
     
