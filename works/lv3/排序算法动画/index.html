@@ -10,6 +10,7 @@
 <script src="js/bubbleSort.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/quickSort.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/insertSort.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/shellSort.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div style="margin:50px;">
@@ -19,7 +20,7 @@
             <input value="180" max="200" min="1" id="speed" type="range" onchange="changeSpeed(200-this.value)" >
         </p>
         <p> 数组长度：
-            <input value="10" width="50" id="arrlen">
+            <input value="20" width="50" id="arrlen">
             <input type="button" value="随机数组" onclick="randomArrayText(document.getElementById('arrlen').value)" class="btn" />
         </p>
         <p> 待排序数组：
@@ -31,7 +32,7 @@
         <input class="btn sortBtn" type="button" value="冒泡排序" onclick="bubbleSortAnimate(SortArr)" />
         <input class="btn sortBtn" type="button" value="快速排序" onclick="quickSortAnimate(SortArr)" />
         <input class="btn sortBtn" type="button" value="插入排序" onclick="insertionSortAnimate(SortArr)" />
-        <input class="btn sortBtn" type="button" value="希尔排序" onclick="playSortAnimate(sortMethodMap.shell)" />
+        <input class="btn sortBtn" type="button" value="希尔排序" onclick="shellSortAnimate(SortArr)" />
         <input class="btn sortBtn" type="button" value="选择排序" onclick="playSortAnimate(sortMethodMap.selection)" />
         <input class="btn sortBtn" type="button" value="鸡尾酒排序" onclick="playSortAnimate(sortMethodMap.cocktail)" />
         <input class="btn sortBtn" type="button" value="奇偶排序" onclick="playSortAnimate(sortMethodMap.oddEven)" />

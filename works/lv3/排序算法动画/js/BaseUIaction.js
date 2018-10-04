@@ -132,3 +132,43 @@ function UIswapHorizontal(Lnumber, Rnumber){
 	
 	delaytime += Speed*2+100;
 }
+
+function UIshellGroup(start, step){
+	var numbers = [];//因为当timeout执行时，SortAr已经变化了。所以要提前将调用该方法时的SortArr中的分组数存下来。
+	for(let i = start;i < SortArr.length;i += step)
+	{
+		numbers.push(SortArr[i]);
+	}
+	
+	var timeoutID = setTimeout(function(){
+		for(let i = 0;i < numbers.length;i ++)
+		{
+			$('#sortAnimateBox>li[data-val="' + numbers[i] + '"]').addClass("shellGroup");
+		}
+		
+	},delaytime);
+	
+	TimeOutIDs.push(timeoutID);
+	
+	delaytime += 200;
+}
+
+function UIunshellGroup(start, step){
+	var numbers = [];//因为当timeout执行时，SortAr已经变化了。所以要提前将调用该方法时的SortArr中的分组数存下来。
+	for(let i = start;i < SortArr.length;i += step)
+	{
+		numbers.push(SortArr[i]);
+	}
+	
+	var timeoutID = setTimeout(function(){
+		for(let i = 0;i < numbers.length;i ++)
+		{
+			$('#sortAnimateBox>li[data-val="' + numbers[i] + '"]').removeClass("shellGroup");
+		}
+		
+	},delaytime);
+	
+	TimeOutIDs.push(timeoutID);
+	
+	delaytime += 200;
+}
