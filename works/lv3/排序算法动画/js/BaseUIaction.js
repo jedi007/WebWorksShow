@@ -3,12 +3,13 @@ var delaySpeed = 150;
 
 var delaytime = 0;
 
+var TimeOutIDs = [];
 
 function UIswap(Lnumber, Rnumber){
 	if(Lnumber == Rnumber)
 		return;
 	
-	setTimeout(function(){
+	var timeoutID = setTimeout(function(){
 		console.log("----------------swap is runing");
 	
 		let leftD  = $('#sortAnimateBox>li[data-val="' + Lnumber + '"]');
@@ -32,6 +33,8 @@ function UIswap(Lnumber, Rnumber){
 		});
 	},delaytime);
 	
+	TimeOutIDs.push(timeoutID);
+	
 	delaytime += Speed*4+100;
 };
 
@@ -46,29 +49,33 @@ function UIunactive(Lnumber, Rnumber){
 }
 
 function UItagone(number){
-	setTimeout(function(){
+	var timeoutID = setTimeout(function(){
 		$('#sortAnimateBox>li[data-val="' + number + '"]').addClass("tagone");
 	},delaytime);
+	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;
 }
 
 function UIuntagone(number){
-	setTimeout(function(){
+	var timeoutID = setTimeout(function(){
 		$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("tagone");
 	},delaytime);
+	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;
 }
 
 function UItagLR(number){
-	setTimeout(function(){
+	var timeoutID = setTimeout(function(){
 		$('#sortAnimateBox>li[data-val="' + number + '"]').addClass("tagLR");
 	},delaytime);
+	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;
 }
 
 function UIuntagLR(number){
-	setTimeout(function(){
+	var timeoutID = setTimeout(function(){
 		$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("tagLR");
 	},delaytime);
+	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;
 }

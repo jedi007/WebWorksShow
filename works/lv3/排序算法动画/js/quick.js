@@ -1,4 +1,6 @@
 function quickSortAnimate(array){
+	$("#sortText").html("快速排序");
+	
 	if(array.length == 0){
 		return array;
 	}
