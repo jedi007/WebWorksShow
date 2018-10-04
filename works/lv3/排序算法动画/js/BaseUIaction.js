@@ -36,31 +36,13 @@ function UIswap(Lnumber, Rnumber){
 };
 
 function UIactive(Lnumber, Rnumber){
-	setTimeout(function(){
-		actioningone(Lnumber);
-	},delaytime);
-	delaytime += delaySpeed;
-	
-	setTimeout(function(){
-		actioningone(Rnumber);
-	},delaytime);
-	delaytime += delaySpeed;
+	UItagLR(Lnumber);
+	UItagLR(Rnumber);
 }
 
-function UIunactive(Lnumber, Rnumber, delaytimet){
-	setTimeout(function(){
-		unactioningone(Lnumber);
-		unactioningone(Rnumber);
-	},delaytime);
-	delaytime += delaySpeed;
-}
-
-function actioningone(number){
-	$('#sortAnimateBox>li[data-val="' + number + '"]').addClass("actioning");	
-}
-
-function unactioningone(number){
-	$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("actioning");	
+function UIunactive(Lnumber, Rnumber){
+	UIuntagLR(Lnumber);
+	UIuntagLR(Rnumber);
 }
 
 function UItagone(number){
