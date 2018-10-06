@@ -161,9 +161,43 @@ function UIunshellGroup(start, step){
 	}
 	
 	var timeoutID = setTimeout(function(){
-		for(let i = 0;i < numbers.length;i ++)
+		for(let i = 0;i < numbers.length; i++)
 		{
 			$('#sortAnimateBox>li[data-val="' + numbers[i] + '"]').removeClass("shellGroup");
+		}
+		
+	},delaytime);
+	
+	TimeOutIDs.push(timeoutID);
+	
+	delaytime += 200;
+}
+
+function UItagEven(){
+	var numbers = [];//因为当timeout执行时，SortAr已经变化了。所以要提前将调用该方法时的SortArr中的分组数存下来。
+	for(let i = 1;i < SortArr.length;i += 2)
+	{
+		numbers.push(SortArr[i]);
+	}
+	
+	var timeoutID = setTimeout(function(){
+		for(let i = 0;i < numbers.length; i++)
+		{
+			$('#sortAnimateBox>li[data-val="' + numbers[i] + '"]').addClass("tagone");
+		}
+		
+	},delaytime);
+	
+	TimeOutIDs.push(timeoutID);
+	
+	delaytime += 200;
+}
+
+function UIuntagall(){
+	var timeoutID = setTimeout(function(){
+		for(var i = 0;i < SortArr.length; i++)
+		{
+			$('#sortAnimateBox>li[data-val="' + SortArr[i] + '"]').removeClass("tagone");
 		}
 		
 	},delaytime);
