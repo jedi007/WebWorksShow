@@ -66,7 +66,7 @@ function UIuntagone(number){
 
 function UItagLR(number){
 	var timeoutID = setTimeout(function(){
-		$('#sortAnimateBox>li[data-val="' + number + '"]').addClass("tagLR");
+		$('#sortAnimateBox>li[data-val="' + number + '"]').css("background-color","red");
 	},delaytime);
 	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;
@@ -74,7 +74,7 @@ function UItagLR(number){
 
 function UIuntagLR(number){
 	var timeoutID = setTimeout(function(){
-		$('#sortAnimateBox>li[data-val="' + number + '"]').removeClass("tagLR");
+		$('#sortAnimateBox>li[data-val="' + number + '"]').css("background-color","");
 	},delaytime);
 	TimeOutIDs.push(timeoutID);
 	delaytime += delaySpeed;

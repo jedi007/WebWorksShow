@@ -1,8 +1,5 @@
 function cocktailSortAnimate(arr){
-	console.log("before sort array is:-------------");
-    console.log(arr);
-    
-    UIreadyCocktailSort();
+	UIreadyCocktailSort();
 	
 	var left = 0;
 	var right = arr.length - 1;
@@ -48,9 +45,6 @@ function cocktailSortAnimate(arr){
 	}
 	
 	UItagone(arr[left]);//当数组元素为单数个时，最后一个元素不会进入循环。
-	
-	console.log("after sort array is:-------------");
-    console.log(arr);
 	
 	return arr;
 }
