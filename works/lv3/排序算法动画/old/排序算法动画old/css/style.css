@@ -1,0 +1,34 @@
+.column{
+	width:20px;
+	height:100%;
+	background:#cccccc;
+	margin:0 1px;
+	
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	
+}
+.column:hover{background:#f30;}
+.active{background:#888888}
+.focus{background:#ffcccc;}
+.highlight{background:#ff6666}
+#sortAnimateBox{
+	margin-top: 50px;
+	position: relative;	
+}
+
+#sortAnimateBox>li{
+	list-style: none;
+}
+
+#sortDescribe{
+	margin-top: 100px;
+}
+
+.tagone{background-color: #FFE4B5;}
+
+.tagLR{background-color: red;}
+
+.shellGroup{background-color: #00E5EE;}
