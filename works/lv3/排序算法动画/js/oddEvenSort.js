@@ -7,13 +7,13 @@ function oddEvenSortAnimate(arr){
 	while(sorted){
 		sorted = false;
 		
-		UItagEven();
+		UIshellGroup(0, 2);
 		for(var i = 0; i < len - 1; i += 2)
 		{
 			UIactive(arr[i], arr[i + 1]);
 			
 			if(arr[i] > arr[i + 1]){
-				UIswap(arr[i], arr[i + 1]);
+				UIanimatesarray.push({fun:UIswap, args:[ arr[i], arr[i + 1] ]});
 				
 				var tmp = arr[i];
 				arr[i] = arr[i + 1];
@@ -23,16 +23,16 @@ function oddEvenSortAnimate(arr){
 			
 			UIunactive(arr[i], arr[i + 1]);
 		}
-		UIuntagall();
+		UIanimatesarray.push({fun:UIuntagallshell});
 		
-		UItagEven();
+		UIshellGroup(0, 2);
 		for(var i = 1; i < len - 1; i += 2)
 		{
 			UIactive(arr[i], arr[i + 1]);
 			
 			if(arr[i] > arr[i + 1])
 			{
-				UIswap(arr[i], arr[i + 1]);
+				UIanimatesarray.push({fun:UIswap, args:[ arr[i], arr[i + 1] ]});
 				
 				var t = arr[i];
 				arr[i] = arr[i + 1];
@@ -42,9 +42,10 @@ function oddEvenSortAnimate(arr){
 			
 			UIunactive(arr[i], arr[i + 1]);
 		}	
-		UIuntagall();
+		UIanimatesarray.push({fun:UIuntagallshell});
 	}
 	
+	UIdonextstep();
 	return arr;
 }
 

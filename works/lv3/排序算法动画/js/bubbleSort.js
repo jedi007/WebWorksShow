@@ -11,7 +11,7 @@ function bubbleSortAnimate(array){
 			
 			if(Lnumber > Rnumber){
 				
-				UIswap(Lnumber, Rnumber);
+				UIanimatesarray.push({fun:UIswap, args:[Lnumber, Rnumber]});
 				
 				array[j] = Rnumber;
 				array[j+1] = Lnumber;
@@ -20,6 +20,8 @@ function bubbleSortAnimate(array){
 			UIunactive(Lnumber, Rnumber);
 		}
 	}
+	
+	UIdonextstep();
 	return array;
 }
 

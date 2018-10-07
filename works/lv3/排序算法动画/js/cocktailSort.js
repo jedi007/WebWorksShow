@@ -9,11 +9,11 @@ function cocktailSortAnimate(arr){
 	{
 		for(i = left; i < right; i++)
 		{
-			UIactive(arr[i], arr[i+1]);
+			UIactive( arr[i], arr[i+1] );
 			
 			if(arr[i] > arr[i+1])
 			{
-				UIswap(arr[i], arr[i+1]);
+				UIanimatesarray.push({fun:UIswap, args:[ arr[i], arr[i+1] ]});
 				
 				temp = arr[i+1];
 				arr[i+1] = arr[i];
@@ -22,7 +22,7 @@ function cocktailSortAnimate(arr){
 			
 			UIunactive(arr[i], arr[i+1]);
 		}
-		UItagone(arr[right]);
+		UIanimatesarray.push({fun:UItagone, args:[ arr[right] ] });
 		right--;
 		
 		for(i = right;i > left;i--)
@@ -31,7 +31,7 @@ function cocktailSortAnimate(arr){
 			
 			if(arr[i-1] > arr[i])
 			{
-				UIswap(arr[i-1], arr[i]);
+				UIanimatesarray.push({fun:UIswap, args:[ arr[i-1], arr[i] ]});
 				
 				temp = arr[i];
 				arr[i] = arr[i-1];
@@ -40,12 +40,13 @@ function cocktailSortAnimate(arr){
 			
 			UIunactive(arr[i], arr[i-1]);
 		}
-		UItagone(arr[left]);
+		UIanimatesarray.push({fun:UItagone, args:[ arr[left] ] });
 		left++;
 	}
 	
-	UItagone(arr[left]);//当数组元素为单数个时，最后一个元素不会进入循环。
+	UIanimatesarray.push({fun:UItagone, args:[ arr[left] ] });//当数组元素为奇数个时，最后一个元素不会进入循环。
 	
+	UIdonextstep();
 	return arr;
 }
 		

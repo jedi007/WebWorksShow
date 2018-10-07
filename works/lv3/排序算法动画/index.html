@@ -5,7 +5,8 @@
 <title>排序算法动画演示</title>
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/BaseUIaction.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/BaseUIactionFuns.js" type="text/javascript" charset="utf-8"></script>
+
 <script src="js/SortAnimateBox.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/bubbleSort.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/quickSort.js" type="text/javascript" charset="utf-8"></script>
@@ -15,10 +16,11 @@
 <script src="js/cocktailSort.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/oddEvenSort.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/combSort.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 <body>
 <div style="margin:50px;">
-    <h1>排序算法动画演示</h1>
+    <h1>排序算法动画演示(使用回调函数实现版本)</h1>
     <div>
         <p> 动画速度：
             <input value="180" max="200" min="1" id="speed" type="range" onchange="changeSpeed(200-this.value)" >
@@ -59,25 +61,8 @@
 	});
 	
 	function changeSpeed(speedi){
-		console.log("speedi is: " + speedi);
 		Speed = speedi/200 * 1200;
-		if(speedi < 10)
-			delaySpeed = 150;
-		else if(speedi < 20)
-			delaySpeed = 200;
-		else if(speedi < 30)
-			delaySpeed = 220;
-		else if(speedi < 40)
-			delaySpeed = 250;
-		else if(speedi < 70)
-			delaySpeed = 300;
-		else if(speedi < 100)
-			delaySpeed = 500;
-		else
-			delaySpeed = 700;
-			
-		console.log("delaySpeed is: " + delaySpeed);
-	}
+	}	
 		
 </script>
 </div>

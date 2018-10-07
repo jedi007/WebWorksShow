@@ -1,34 +1,31 @@
 function selectionSortAnimate(arr){
-	console.log("before sort array is:-------------");
-    console.log(arr);
-    UIreadySelectionSort();
+	UIreadySelectionSort();
 	
 	var len = arr.length;
     var minIndex, temp;
     for (var i = 0; i < len - 1; i++) {
     	minIndex = i;
         
-        UItagLR(arr[minIndex]);
+        UIanimatesarray.push({fun:UItagLR, args:[ arr[minIndex] ]});
         for (var j = i + 1; j < len; j++) {
             if (arr[j] < arr[minIndex]) {     // 寻找最小的数
-                UIuntagLR(arr[minIndex]);
+                UIanimatesarray.push({fun:UIuntagLR, args:[ arr[minIndex] ]});
                 minIndex = j;                 // 将最小数的索引保存
-                UItagLR(arr[minIndex]);
+                UIanimatesarray.push({fun:UItagLR, args:[ arr[minIndex] ]});
             }
         }
         temp = arr[i];
         
-        UIswap(arr[i], arr[minIndex]);
-        UIuntagLR(arr[minIndex]);
-        UItagone(arr[minIndex]);
+        UIanimatesarray.push({fun:UIswap, args:[ arr[i], arr[minIndex] ]});
+        UIanimatesarray.push({fun:UIuntagLR, args:[ arr[minIndex] ]});
+        UIanimatesarray.push({fun:UItagone, args:[ arr[minIndex] ]});
         
         arr[i] = arr[minIndex];
         arr[minIndex] = temp;
     }
-    UItagone(arr[len-1]);
+    UIanimatesarray.push({fun:UItagone, args:[ arr[len-1] ]});
     
-    console.log("after sort array is:-------------");
-    console.log(arr);
+    UIdonextstep();
     return arr;
 }
 

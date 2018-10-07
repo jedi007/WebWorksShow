@@ -26,9 +26,12 @@ function clearSortArrayBar(){
 	{
 		clearTimeout(TimeOutIDs[i]);
 	}
-	TimeOutIDs.splice(0,TimeOutIDs.length);
+	TimeOutIDs.splice(0, TimeOutIDs.length);
+	UIanimatesarray.splice(0, UIanimatesarray.length);
 	$("#sortAnimateBox>li").stop(true,true);
 	$("#sortAnimateBox").html("");
+	
+	stepcount = -1;
 }
 
 function newSortArrayBar(){
@@ -47,10 +50,10 @@ function getColumn( indexi, number, len){
 
 function AllBtnUnabled(){
 	$("input.sortBtn").attr('disabled',true);
-	$("input[type = range]").attr('disabled',true);
+	//$("input[type = range]").attr('disabled',true);
 }
 
 function AllBtnabled(){
 	$("input.sortBtn").attr('disabled',false);
-	$("input[type = range]").attr('disabled',false);
+	//$("input[type = range]").attr('disabled',false);
 }

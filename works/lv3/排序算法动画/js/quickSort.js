@@ -15,33 +15,32 @@ function quickSortAnimate(array){
 		let i = left;
 		let j = right;
 		
-		UItagone(Basekey);
+		UIanimatesarray.push({fun:UItagone, args:[Basekey]});
 		
-		UItagLR(array[i+1]);
-		UItagLR(array[j]);		
+		UIactive(array[i+1],array[j])
 		
 		while(i < j)
 		{
 			//先从右往左开始找更好
 			while(array[j] >= Basekey && i < j)
 			{
-				UIuntagLR(array[j]);
+				UIanimatesarray.push({fun:UIuntagLR, args:[array[j]]});
 				j--;
-				UItagLR(array[j]);
+				UIanimatesarray.push({fun:UItagLR, args:[array[j]]});
 			}
 				
 				
 			//再从左往右找
 			while(array[i] <= Basekey && i < j)
 			{
-				UIuntagLR(array[i]);
+				UIanimatesarray.push({fun:UIuntagLR, args:[array[i]]});
 				i++;
-				UItagLR(array[i]);
+				UIanimatesarray.push({fun:UItagLR, args:[array[i]]});
 			}
 				
 			if(i < j)
 			{
-				UIswap(array[i],array[j]);
+				UIanimatesarray.push({fun:UIswap, args:[array[i],array[j]]});
 				
 				let temp = array[i];
 				array[i] = array[j];
@@ -50,18 +49,21 @@ function quickSortAnimate(array){
 		}
 		
 		//快速排序基准数归位
-		UIswap(array[left],array[i]);
-		UIuntagLR(array[i]);
+		UIanimatesarray.push({fun:UIswap, args:[ array[left],array[i] ]});
+		UIanimatesarray.push({fun:UIuntagLR, args:[array[i]]});
 		array[left] = array[i];
 		array[i] = Basekey;
 		
-		UIuntagone(Basekey);
+		UIanimatesarray.push({fun:UIuntagone, args:[Basekey] });
 		
 		Sort(left, i-1);
 		Sort(i+1, right);
 	}
 	
 	Sort(i, j);
+	
+	UIdonextstep();
+	
 	return array;
 }
 

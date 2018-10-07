@@ -1,7 +1,4 @@
 function insertionSortAnimate(arr) {
-    console.log("before sort array is:-------------");
-    console.log(arr);
-    
     UIreadyInsertionSort();
     
     var len = arr.length;
@@ -9,20 +6,19 @@ function insertionSortAnimate(arr) {
     for (var i = 1; i < len; i++) {
         preIndex = i - 1;
         current = arr[i];
-        UIpopout(current);
+        UIanimatesarray.push({fun:UIpopout, args:[ current ]});
         while (preIndex >= 0 && arr[preIndex] > current) {
-        	UIswapHorizontal(arr[preIndex], current);
+        	UIanimatesarray.push({fun:UIswapHorizontal, args:[ arr[preIndex], current ]});
         	
             arr[preIndex + 1] = arr[preIndex];
             preIndex--;
         }
-        UIpushback(current);
+        UIanimatesarray.push({fun:UIpushback, args:[ current ]});
         arr[preIndex + 1] = current;
     }
     
-    console.log("after sort array is:-------------");
-    console.log(arr);
     
+    UIdonextstep();
     return arr;
 }
 

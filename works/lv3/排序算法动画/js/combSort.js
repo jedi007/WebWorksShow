@@ -17,7 +17,7 @@ function combSortAnimate(arr){
     			
     			if(arr[j - step] > arr[j])
     			{
-    				UIswap(arr[j - step], arr[j]);
+    				UIanimatesarray.push({fun:UIswap, args:[ arr[j - step], arr[j] ]});
     				
     				temp = arr[j];
     				arr[j] = arr[j - step];
@@ -27,10 +27,11 @@ function combSortAnimate(arr){
     			UIunactive(arr[j - step], arr[j]);
     		}
     		
-    		UIunshellGroup(i, step);
+    		UIanimatesarray.push({fun:UIuntagallshell});
     	}
     }
     
+    UIdonextstep();
     return arr;
 }
 
