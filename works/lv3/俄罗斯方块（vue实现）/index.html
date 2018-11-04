@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>俄罗斯方块（VUE）</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/global_var.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/modelMatrixs.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/models.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/game.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/init.js" type="text/javascript" charset="utf-8"></script>
+		
+		<style type="text/css">
+		</style>
+	</head>
+	<body>
+		<script type="text/x-template" id="infoboard">
+		    <div style="position: absolute;" :style="{left:pwidth*12+'px',top:pheight*10+'px'}">
+		        <ul>
+		        	<li style="width:300px;"><h3 style="color: red;">用时: {{usetime}} s</h3></li>
+		        	<li><h3 style="color: red;">得分: {{score}}</h3></li>
+		        	
+		        	<li>速度: &nbsp;{{cspeed.value}}<input type="range"  min="1" max="100" class="form-control" v-model="cspeed.value"/></li>
+		        	<li style="margin-top: 10px;">难度: &nbsp;{{cdiflv.value}}<input type="range"  min="1" max="4" class="form-control" v-model="cdiflv.value"/></li>
+		        </ul>
+		    </div>
+		    
+		</script>
+		<div id="gamediv" class = "gamediv" :style="{top:cellHeight+'px', left:'50px', width:cellWidth*gsMatrixCols+'px', height:cellHeight*gsMatrixRows+'px'}">			
+			<div id="nextdiv" class = "gamediv" :style="{top:cellHeight+'px', left:cellWidth*gsMatrixCols+100+'px', width:cellWidth*4+'px', height:cellHeight*4+'px'}">		
+			</div>
+			
+			<infoboard :usetime="usetime" :score="score" :cspeed="speed" :cdiflv="difficutyLv" :pwidth="cellWidth" :pheight="cellHeight"></infoboard>
+			
+		</div>
+		<div style="position: absolute;left:500px;">
+			<button type="button" class="btn btn-lg btn-danger" onclick="bigger()">放大</button>
+			<button type="button" class="btn btn-lg btn-danger" onclick="smaller()">缩小</button>
+			<button type="button" class="btn btn-lg btn-danger" onclick="RestoreDefault()">还原</button>
+			<a class="btn btn-lg btn-warning" href="俄罗斯方块/index.html" target="_blank" >俄罗斯方块--jquery实现</a>
+		</div>
+		
+		<script>
+			
+			
+			function bigger(){
+				app.cellWidth++;
+				app.cellHeight++;
+			}
+			
+			function smaller(){
+				app.cellWidth--;
+				app.cellHeight--;
+			}
+			
+			function RestoreDefault(){
+				app.cellWidth = cellWidth;
+				app.cellHeight = cellHeight;
+			}
+			
+			window.onload = function (){
+			document.onkeydown = function (e){
+				if(e.keyCode == 38){//up
+					onup();
+				}else if(e.keyCode == 39){//right
+					onright();
+				}else if(e.keyCode == 40){//down
+					ondown();
+				}else if(e.keyCode == 37){//left
+					onleft();
+				}else if(e.keyCode == 32){//space
+					console.log(e.keyCode);
+				}
+			}
+			
+		}
+		</script>
+	</body>
+</html>

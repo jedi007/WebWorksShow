@@ -1,0 +1,29 @@
+.gamediv{
+	background-color: #F2FAFF;
+	border-left: 1px blue solid;
+	border-bottom: 1px blue solid;
+	border-right: 1px blue solid;
+	position: absolute;
+}
+
+.pixelmodel0{
+	background-color: #454545;
+	position: absolute;
+	box-sizing: border-box;
+	padding: 3px;
+	border: 1px solid #DCDCDC;
+}
+
+.pixelmodel1{
+	background-color: #FFA500;
+	position: absolute;
+	box-sizing: border-box;
+	padding: 3px;
+	/*border: 1px solid black;*/
+	box-shadow: #888888 1px 1px 1px 1px inset;//边框阴影
+}
+
+li{
+	list-style: none;
+	background-color: deepskyblue;
+}
