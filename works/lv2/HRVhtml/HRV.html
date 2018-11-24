@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>testcharts</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#main{
+				position: relative;
+			}
+			.model{
+				border: 3px solid #EAEAEA;
+				border-left: 5px solid #EAEAEA;
+				height: 800px;
+				width: 850px;
+				margin-top: 20px;
+				margin-bottom: 50px;
+				margin-left: 50px;
+			}
+		</style>
+		<script src="jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 		src="../../../echarts.js"      此方法应可减少缓存量 -->
+		<script type="text/javascript">
+			var RRI_data,
+					PSDdata_VLF,PSDdata_LF,PSDdata_HF,
+					Poincaredata,RRIMax,RRIMean,RRIMin,RRIellipse,
+					DFAdata, DFAakb;
+			$(function(){
+				//$.ajaxSettings.async = false;//------设置getJson同步
+				$.getJSON("HRVdata.json", "", function(data) {
+				       RRI_data = data.settings[0].RRI_data;
+				       
+				       PSDdata_VLF = data.settings[1].PSDdata_VLF;
+				       PSDdata_LF = data.settings[2].PSDdata_LF;
+				       PSDdata_HF = data.settings[3].PSDdata_HF;
+							 
+							 Poincaredata = data.settings[4].RRIdata;
+							 var PoincareMarkdata = data.settings[5].RRImarkdata;
+							 RRIMax = PoincareMarkdata[0];
+							 RRIMean = PoincareMarkdata[1];
+							 RRIMin = PoincareMarkdata[2];
+							 RRIellipse = data.settings[6].RRIellipse;
+				       
+				       DFAdata = data.settings[7].DFAdata;
+				       DFAakb = data.settings[8].DFAakb;
+				       
+				       
+				       
+				       
+				       console.log(RRIellipse);
+				       
+				       initRR();
+				       initPSD();
+				       initDFA();
+							 initRRI();
+				});
+				//$(document.body).height(200);
+				//$.ajaxSettings.async = false;//------设置getJson同步
+			});
+		</script>
+	</head>
+	<body>
+    	<div id="main">
+    		<div id="RR" class="model"></div>
+    		<div id="PSD" class="model"></div>
+				<div id="RRI" class="model"></div>
+    		<div id="DFA" class="model"></div>
+    		<div style="height: 800px;"></div>
+    		<script type="text/javascript">
+    			function initRR(){
+    				var myChart_RR = echarts.init(document.getElementById('RR'));
+    				    				
+	    			var optionchart_RR = {
+										    title : {
+										        text: 'RR Distribution',
+										        x: 'center',
+										        y: 10
+										    },
+										    tooltip : {
+										        trigger: 'axis'
+										    },
+										    xAxis : [
+										        {
+										            type : 'value',
+										            //min: 0.6,
+										            name:'RR(s)',
+											        nameLocation:'middle',
+											        nameTextStyle:{
+											            color:"black", 
+											            fontSize:18,  
+											            padding:12
+											        }
+										        }
+										    ],
+										    yAxis : [
+										        {
+										            type : 'value',
+										            name:'Nbr of beats',
+											        nameLocation:'middle',
+											        nameTextStyle:{
+											            color:"black", 
+											            fontSize:18,  
+											            padding:26
+											        }
+										        }
+										    ],
+										    color:  [ 
+													    '#436EEE'
+													],
+										    series : [
+										        {
+										            name:'次数',
+										            type:'bar',
+										            data:RRI_data,
+										            //barWidth : 30,//柱图宽度
+										        }
+										    ]
+										};
+	    			myChart_RR.setOption(optionchart_RR);
+    			}
+    			
+    			function initPSD(){
+    				var myChart_PSD = echarts.init(document.getElementById('PSD'));
+	    			var optionchart_PSD = {
+	    				title : {
+					        text: 'RR Spectrum',
+					        x: 'center'
+					    },
+					    tooltip : {
+					        trigger: 'axis'
+					    },
+					    legend: {
+					        data:['VLF','LF','HF'],
+					        y: '30px'
+					    },
+					    color:  [ 
+								    '#B5B5B5', '#cd5c5c', '#32cd32'
+								],
+					    calculable : false,//拖拽重计算功能
+					    xAxis : [
+					        {
+					            type : 'value',
+					            max: 0.5,
+					            name:'Frequency(Hz)',
+						        nameLocation:'middle',
+						        nameTextStyle:{
+						            color:"black", 
+						            fontSize:18,  
+						            padding:12
+						        }
+					        }
+					    ],
+					    yAxis : [
+					        {
+					            type : 'value',
+					            max: 0.067,
+					            name:'PSD(S²/Hz)',
+						        nameLocation:'middle',
+						        nameTextStyle:{
+						            color:"black", 
+						            fontSize:18,  
+						            padding:26
+						        }
+					        }
+					    ],
+					    series : [
+					        {
+					            
+					            		
+											symbol: "none",
+					            name:'VLF',
+					            type:'line',
+											smooth:false,   //关键点，为true是不支持虚线的，实线就用true
+					            itemStyle: {normal: {
+												areaStyle: {type: 'default'},
+												lineStyle:{
+														color:'black',
+                            width:1,
+                            type:'solid'  //'dotted'虚线 'solid'实线
+                        }
+											
+												}},
+					            data:PSDdata_VLF
+					        },
+					        {
+					            symbol: "none",
+					            name:'LF',
+					            type:'line',
+					            itemStyle: {normal: {
+					            							areaStyle: {type: 'default'},
+					            							lineStyle:{
+					            									color:'black',
+					            									width:1,
+					            									type:'solid'  //'dotted'虚线 'solid'实线
+					            							}
+					            						}},
+					            data:PSDdata_LF
+					        },
+					        {
+					            symbol: "none",
+					            name:'HF',
+					            type:'line',
+					            itemStyle: {normal: {
+																		areaStyle: {type: 'default'},
+																		lineStyle:{
+																				color:'black',
+																				width:1,
+																				type:'solid'  //'dotted'虚线 'solid'实线
+																		}
+																	}},
+					            data:PSDdata_HF
+					        }
+					    ]
+					};
+	    			
+	    			myChart_PSD.setOption(optionchart_PSD);
+    			}
+
+					function initDFA(){
+						var myChart_DFA = echarts.init(document.getElementById('DFA'));
+	    			var optionchart_DFA = {
+					    title : {
+							        text: 'DFA',
+					        		x: 'center',
+					        		y:20
+							},
+					    tooltip : {
+					        trigger: 'item',
+					        showDelay : 0,
+					        formatter : function (params) {
+					            if( params.componentType == "series" )
+					            {
+					            	if (params.value.length > 1) {
+					                return params.seriesName + '  '
+					                   + params.value[0] + ' , ' 
+					                   + params.value[1] + '  ';
+						            }
+						            else {
+						                return params.seriesName + '  '
+						                   + params.name + '  '
+						                   + params.value + '  ';
+						            }
+					            }
+					            
+					        },  
+					        axisPointer:{
+					            show: true,
+					            type : 'cross',
+					            lineStyle: {
+					                type : 'dashed',
+					                width : 1
+						        }
+						    }
+							},
+							color:  [ 'blue'],
+							xAxis : [
+									{
+											type : 'value',
+											scale:true,
+											name:'log n',
+						        nameLocation:'middle',
+						        nameTextStyle:{
+						            color:"black", 
+						            fontSize:18,  
+						            padding:12
+						        },
+									}
+							],
+					    yAxis : [
+					        {
+					            type : 'value',
+					            scale:true,
+								name:'log F(n)',
+						        nameLocation:'middle',
+						        nameTextStyle:{
+						            color:"black", 
+						            fontSize:18,  
+						            padding:26
+						        }
+					        }
+					    ],
+					    series : [
+					        {
+					            name:'DFA',
+					            type:'scatter',
+					            symbolSize: function (val) {
+			                    	return 4;//散点的大小
+			                	},
+					            data: DFAdata,
+					            markLine : {
+					                data: [
+					                    [
+					                        {
+					                            coord: DFAakb[0],
+					                            symbol: 'none'
+					                        },
+					                        {
+					                            name: 'α1',
+					                            label:{
+					                            	normal:{
+					                            	show:true,
+																				position:'middle',
+																				formatter: '{b}',
+																				padding:20,
+																				fontSize:20
+																							}
+																				},
+					                            coord: DFAakb[1],
+					                            lineStyle: { normal:{type: 'solid', color:'red' ,width:2}},
+					                            symbol: 'none'
+					                        },
+					                    ],
+					                    [
+					                        {
+					                            coord: DFAakb[2],
+					                            symbol: 'none'
+					                        },
+					                        {
+					                            name: 'α2',
+					                            label:{
+					                            	normal:{
+					                            		show:true,
+																					position:'middle',
+																					formatter: '{b}',
+																					padding:20,
+																					fontSize:20
+																				}
+																			},
+					                            coord: DFAakb[3],
+					                            lineStyle: { normal:{type: 'solid', color:'green' ,width:2}},
+					                            symbol: 'none'
+					                        },
+					                    ]
+					                ]
+						        }
+					        }
+					    ],
+
+						};
+	    			
+	    			myChart_DFA.setOption(optionchart_DFA);
+					}
+    		
+					function initRRI(){
+						var myChart_RRI = echarts.init(document.getElementById('RRI'));
+						var optionchart_RRI = {
+								title : {
+												text: 'Poincare Plot',
+												x: 'center',
+												y:20
+								},
+								tooltip : {
+										trigger: 'item',
+										showDelay : 0,
+										formatter : function (params) {
+												if( params.componentType == "series" )
+												{
+													if (params.value.length > 1) {
+														return params.seriesName + '  '
+															+ params.value[0] + ' , ' 
+															+ params.value[1] + '  ';
+													}
+													else {
+															return params.seriesName + '  '
+																+ params.name + '  '
+																+ params.value + '  ';
+													}
+												}
+										},  
+										axisPointer:{
+												show: true,
+												type : 'cross',
+												lineStyle: {
+														type : 'dashed',
+														width : 1
+											}
+									}
+								},
+								color:  [ 'blue'],
+								xAxis : [
+										{
+												type : 'value',
+												scale:true,
+												name:'RRn(ms)',
+							        nameLocation:'middle',
+							        nameTextStyle:{
+							            color:"black", 
+							            fontSize:18,  
+							            padding:12
+							        }
+										}
+								],
+								yAxis : [
+										{
+												type : 'value',
+												scale:true,
+												name:'RRn+1(ms)',
+								        nameLocation:'middle',
+								        nameTextStyle:{
+								            color:"black", 
+								            fontSize:18, 
+								            padding:26
+								        }
+										}
+								],
+								series : [
+										{
+												name:'RRI',
+												type:'scatter',
+												symbolSize: function (val) {
+															return 3;//散点的大小
+													},
+												data: Poincaredata,
+												markLine : {
+													data: [
+														[
+															{
+																	coord: [1492,718],
+																	symbol: 'none'
+															},
+															{
+																	name: 'SD1',
+																	label:{
+																		normal:{
+																			show:true,
+																			position:'end',
+																			formatter: '{b}',
+																			verticalAlign:'bottom',
+																			fontSize:20
+																		}
+																	},
+																	coord: [718,1492],
+																	lineStyle: { normal:{type: 'solid', color:'black' ,width:1}},
+																	symbol: 'arrow'
+															}
+														],
+														[
+															{
+																	coord: [RRIMin,RRIMin],
+																	symbol: 'none'
+															},
+															{
+																	name: 'SD2',
+																	label:{
+																		normal:{
+																			show:true,
+																			position:'end',
+																			formatter: '{b}',
+																			verticalAlign:'bottom',
+																			fontSize:20
+																		}
+																	},
+																	coord: [RRIMax,RRIMax],
+																	lineStyle: { normal:{type: 'solid', color:'green' ,width:1}},
+																	symbol: 'arrow'
+															}
+														]
+													]
+												}
+										},
+										{
+											name:'RRIellipse',
+											type:'line',
+											data: RRIellipse,
+											color:'red',
+											symbol:'none',
+											z:3,
+											lineStyle: {width:3}
+										}
+								],
+						};
+						myChart_RRI.setOption(optionchart_RRI);
+					}
+				</script>
+    	</div>
+	</body>
+</html>
