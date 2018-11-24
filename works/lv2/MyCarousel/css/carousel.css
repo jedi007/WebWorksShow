@@ -2,8 +2,16 @@ ol,ul{list-style:none;}
 .poster-main{
 	width: 800px;
 	height: 270px;
+	margin-left: 100px;
+	position: absolute;
+}
+
+.poster-main2{
+	width: 1200px;
+	height: 270px;
 	margin: 100px;
 	position: absolute;
+	top: 250px;
 }
 
 .poster-item{ position:absolute;left:0;top:0;}
