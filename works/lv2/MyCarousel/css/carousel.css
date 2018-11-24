@@ -4,7 +4,6 @@ ol,ul{list-style:none;}
 	height: 270px;
 	margin: 100px;
 	position: absolute;
-	border: 1px solid red;
 }
 
 .poster-item{ position:absolute;left:0;top:0;}

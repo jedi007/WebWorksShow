@@ -9,15 +9,15 @@
 				-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom,
 				 from(transparent), color-stop(20%, transparent) , to(rgba(250, 250, 250, 0.5)));
 			}*/
+			body{
+				background-color: #080808;
+			}
 		</style>
 		
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/functions.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/carousel.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			console.log('jquery version: '+$.fn.jquery);
-			
-			console.log("Math.pow(2,3):"+Math.pow(2,3));
 			$(function(){
 				var test = new Mcarousel( $('.poster-main') );
 			});
@@ -34,8 +34,7 @@
 	                                                        "delay":2000,
 	                                                        "speed":300
 														}'>
-			<div class="poster-btn poster-prev-btn"></div>
-		    <ul class="poster-list">
+			<ul class="poster-list">
 		    	<li class="poster-item"><a href="#"><img src="img/1.jpg" width="100%" height="100%"></a></li>
 		        <li class="poster-item"><a href="#"><img src="img/2.jpg" width="100%" height="100%"></a></li>
 		        <li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" height="100%"></a></li>
@@ -45,7 +44,6 @@
 		        <li class="poster-item"><a href="#"><img src="img/3.jpg" width="100%" height="100%"></a></li>
 		        <li class="poster-item"><a href="#"><img src="img/4.jpg" width="100%" height="100%"></a></li>
 		    </ul>
-		    <div class="poster-btn poster-next-btn"></div>
 		</div>
 	</body>
 </html>

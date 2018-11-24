@@ -1,18 +1,15 @@
-;(function(){
-		
-})();
-
-var Mcarousel = function(jq){
+;var Mcarousel = function(jq){
 		console.log('Mcarousel is called');
+		var _this = this;
+		this.init_btn(jq,this);
 		
-		var images = this.images = jq.find('li');
+		var images = this.images = jq.find('ul>li');
 		var position_array = this.position_array = [];
-		
 		
 		var len = images.size();
 		if(len%2==0)
 		{
-			images.last().parent().append(images.first().clone());
+			images.first().clone().insertBefore(images.eq(Math.ceil(len/2)));
 			images = this.images = jq.find('li');
 		}
 		
@@ -41,20 +38,53 @@ var Mcarousel = function(jq){
 									"left"   : left,
 									"zIndex" : 100-Math.abs(i-mid_index),
 									"opacity": opacitycoe/opacityscale
-							}
+							};
+							
+			images.eq(i).hover(
+				function () {
+					window.clearInterval(_this.timer);
+				},
+				function () {
+					_this.timer = window.setInterval(function(){
+										_this.autoplay(_this.dataarrow,1000);
+									},1000);
+				}
+			);
 		}
-		this.autoplay("right",0);
 		
-		var _this = this;
+		this.dataarrow = "right";
+		this.autoplay(this.dataarrow,0);
+		
 		this.timer = window.setInterval(function(){
 			_this.autoplay("left",500);
 		},1000);
 }
 
 Mcarousel.prototype = {
-	init:function(jq){
-		console.log('i\'m called by init');
-		console.log(jq);
+	init_btn:function(jq,_this){
+		$('<div class="arrow-btn" data-arrow="left" style="position:absolute;top:0;left:0; width:60px;height:100%; cursor:pointer;  opacity:0.3; background: url(\'./img/btn_l.png\') no-repeat center center;z-index:1000; "></div>').insertBefore(jq.find("ul"));
+		$('<div class="arrow-btn" data-arrow="right" style="position:absolute;top:0;right:0; width:60px;height:100%; cursor:pointer;  opacity:0.3; background: url(\'./img/btn_r.png\') no-repeat center center;z-index:1000; "></div>').insertBefore(jq.find("ul"));		
+		
+		$(".arrow-btn").each(function(){
+			$(this).click(function(){
+				_this.dataarrow = $(this).attr("data-arrow");
+				console.log(_this.dataarrow+"btn clicked");
+				window.clearInterval(_this.timer);
+				
+				_this.timer = window.setInterval(function(){
+					_this.autoplay(_this.dataarrow,1000);
+				},1000);
+			});
+			
+			$(this).hover(
+				function () {
+					$(this).css("opacity",1);
+				},
+				function () {
+				$(this).css("opacity",0.3);
+				}
+			);
+		});
 	},
 	autoplay:function(direction,speed)
 	{
@@ -88,7 +118,5 @@ Mcarousel.prototype = {
 									
 								});
 		}
-		
 	}
-	
 }
