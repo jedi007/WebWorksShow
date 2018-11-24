@@ -46,17 +46,17 @@
 				},
 				function () {
 					_this.timer = window.setInterval(function(){
-										_this.autoplay(_this.dataarrow,1000);
+										_this.autoplay(_this.dataarrow,500);
 									},1000);
 				}
 			);
 		}
 		
 		this.dataarrow = "right";
-		this.autoplay(this.dataarrow,0);
+		this.autoplay(_this.dataarrow,0);
 		
 		this.timer = window.setInterval(function(){
-			_this.autoplay("left",500);
+			_this.autoplay(_this.dataarrow,500);
 		},1000);
 }
 
@@ -72,7 +72,7 @@ Mcarousel.prototype = {
 				window.clearInterval(_this.timer);
 				
 				_this.timer = window.setInterval(function(){
-					_this.autoplay(_this.dataarrow,1000);
+					_this.autoplay(_this.dataarrow,500);
 				},1000);
 			});
 			
@@ -91,6 +91,8 @@ Mcarousel.prototype = {
 		var images = this.images;
 		var len = images.size();
 		
+		console.log("direction:"+direction);
+		
 		if(direction == "right")
 		{
 			var first = this.position_array[0];
@@ -104,6 +106,10 @@ Mcarousel.prototype = {
 			this.position_array.unshift(last);
 		}
 		
+// 		images.each(function(){
+// 			$(this).stop(true,true);
+// 		});
+		
 		for(var i =0;i < images.length; i++)
 		{
 			images.eq(i).css("zIndex",this.position_array[i].zIndex);
@@ -112,11 +118,7 @@ Mcarousel.prototype = {
 									left:100*this.position_array[i].left+"%",
 									opacity:this.position_array[i].opacity
 								},
-								speed,
-								function(){
-									console.log("animate over");
-									
-								});
+								speed);
 		}
 	}
 }
