@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			ol,ul{list-style:none;}
+			li{ position:absolute;width: 200px;}
+			img{
+				display: block;/* 可以清楚img下方多出的1像素空白,因为img默认是inline */
+			}
+			body{background-color: black;text-align:center;overflow:hidden;}/* 不加overflow:hidden;会在旋转时弹出滚动条 */
+			
+			.stage {
+				width: 220px;
+				height: 280px;
+				margin: auto;
+				position: absolute;
+				top:  0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				
+				/*transform 旋转元素*/
+				transform-style:preserve-3d;
+				transform:perspective(800px) rotateX(-20deg) rotateY(0deg);
+			}
+			
+			li{
+				-webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom,
+				 from(transparent), color-stop(20%, transparent) , to(rgba(250, 250, 250, 0.5)));
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mainbox" class="stage">
+			<ul>
+				<li><a href="#"><img src="img/mm1.jpg" width="100%" height="100%"></a></li>
+				<li><a href="#"><img src="img/mm2.jpg" width="100%" height="100%"></a></li>
+				<li><a href="#"><img src="img/mm3.jpg" width="100%" height="100%"></a></li>
+				<li><a href="#"><img src="img/mm4.jpg" width="100%" height="100%"></a></li>
+				<li><a href="#"><img src="img/mm5.jpg" width="100%" height="100%"></a></li>
+				<li><a href="#"><img src="img/mm6.jpg" width="100%" height="100%"></a></li>
+				<li><a href="#"><img src="img/mm8.jpg" width="100%" height="100%"></a></li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var imgL=$("#mainbox li").length;
+			var deg=360/imgL;
+			var roY=0,roX=0;
+			var xN=0,yN=0;
+			var play=null,beginplay=null;
+			
+			$("#mainbox li").each(function(i){
+				$(this).css({
+				<!--translateZ 定义2d旋转沿着z轴-->
+				"transform":"rotateY("+i*deg+"deg) translateZ(300px)"	});
+				<!--防止图片被拖拽-->
+				$(this).attr('ondragstart','return false');
+				
+				$(this).hover(function(){
+					clearInterval(play);
+				},function(){
+					beginplay();
+				});
+				
+				$(this).click(function(){
+					alert("You choose the "+i+"th image");
+				});
+			});
+			
+			beginplay=function(){
+				play=setInterval(function(){
+					roY-= 1;
+					$('#mainbox').css({
+						transform:'perspective(800px) rotateX(-20deg) rotateY('+roY+'deg)'
+					});
+				},30);
+			}
+			beginplay();
+		</script>
+	</body>
+</html>
