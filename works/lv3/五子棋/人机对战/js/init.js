@@ -1,3 +1,5 @@
+var dialog = null; 
+
 $(function(){
 	var lines = '';
 	for(var i = 0; i< 15;i++)
@@ -11,6 +13,12 @@ $(function(){
 		lines += '<line x1="'+linx+'"  y1="40"   x2="'+linx+'" y2="600" style="stroke:rgb(0,0,0);stroke-width:1" />';
 	}
 	$("g").html(lines);
+	dialog = window.creatMyDialog();
+	dialog.setOK_cb(function(){
+		location.reload();
+	});
+	dialog.setCancel_hide(true);
+	dialog.setClosebtn_hide(true);
 });
 
 var checkerboard = new Array();
@@ -111,11 +119,13 @@ function addchess(col,row){
 	if(checkwin(checkerboard,row-1,col-1))
 	{
 		var strh = color+'  WIN!!!';
+		dialog.setContent(strh);
+		dialog.show();
 		strh = '<h1>'+strh+'</h1>';
 		strh += '<button id="AgainBtn">Again</button>'
-		var allhtml = $('body').html();
-		allhtml = strh + allhtml;
-		$('body').html(allhtml);
+// 		var allhtml = $('body').html();
+// 		allhtml = strh + allhtml;
+// 		$('body').html(allhtml);
 		$('#AgainBtn').click(function(){
 			location.reload();
 		});
