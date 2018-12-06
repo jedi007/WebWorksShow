@@ -20,56 +20,194 @@
 				margin-bottom: 50px;
 				margin-left: 50px;
 			}
+			
+			.model1{
+				border: 3px solid #EAEAEA;
+				border-left: 5px solid #EAEAEA;
+			}
+			.model2{
+				border: 3px solid #EAEAEA;
+				border-right: 5px solid #EAEAEA;
+				position: absolute;
+			}
+			#mainb{
+				position: relative;
+				margin-bottom: 100px;
+			}
 		</style>
-		<script src="jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 		src="../../../echarts.js"      此方法应可减少缓存量 -->
 		<script type="text/javascript">
-			var RRI_data,
-					PSDdata_VLF,PSDdata_LF,PSDdata_HF,
-					Poincaredata,RRIMax,RRIMean,RRIMin,RRIellipse,
-					DFAdata, DFAakb;
+			var gnW,gnH,pie1data,pie2data;
 			$(function(){
-				//$.ajaxSettings.async = false;//------设置getJson同步
-				$.getJSON("HRVdata.json", "", function(data) {
-				       RRI_data = data.settings[0].RRI_data;
-				       
-				       PSDdata_VLF = data.settings[1].PSDdata_VLF;
-				       PSDdata_LF = data.settings[2].PSDdata_LF;
-				       PSDdata_HF = data.settings[3].PSDdata_HF;
-							 
-							 Poincaredata = data.settings[4].RRIdata;
-							 var PoincareMarkdata = data.settings[5].RRImarkdata;
-							 RRIMax = PoincareMarkdata[0];
-							 RRIMean = PoincareMarkdata[1];
-							 RRIMin = PoincareMarkdata[2];
-							 RRIellipse = data.settings[6].RRIellipse;
-				       
-				       DFAdata = data.settings[7].DFAdata;
-				       DFAakb = data.settings[8].DFAakb;
-				       
-				       
-				       
-				       
-				       console.log(RRIellipse);
-				       
-				       initRR();
-				       initPSD();
-				       initDFA();
-							 initRRI();
+				$.getJSON("piesetting.json", "", function(data) {
+							gnW = data.settings[2].mainW/2;
+							gnH = data.settings[2].mainH;
+							var mainleft = data.settings[2].mainleft;
+							var maintop = data.settings[2].maintop;
+							
+							pie1data = data.settings[0].pie1data;
+							pie2data = data.settings[1].pie2data;
+							
+							$('#mainb').width(gnW*2);
+							$('#mainb').height(gnH);
+							$('#mainb').offset({top:maintop,left:mainleft});
+							
+							$('.model1').width(gnW);
+						  $('.model2').width(gnW);
+						  $('.model1').height(gnH);
+						  $('.model2').height(gnH);
+							initpie1();
+							initpie2();
+							$('.model2').offset({top:maintop,left:gnW+mainleft+3});
 				});
-				//$(document.body).height(200);
-				//$.ajaxSettings.async = false;//------设置getJson同步
+				$(document.body).height(200);
 			});
 		</script>
 	</head>
 	<body>
+			<div id="mainb">
+				<div id="饼图1" class="model1"></div>
+				<script type="text/javascript">
+					function initpie1(){
+						// 引入 ECharts 主模块
+					var myChart = echarts.init(document.getElementById('饼图1'));
+					// 绘制图表
+					var option = {
+							//backgroundColor: '#2c343c',//背景色
+							title : {
+													text: '睡眠状态占比',
+													x:'center',
+													y:'5%',
+													width:'50%',
+													textStyle:{
+														fontSize:14,
+														//字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+												fontWeight:500
+											}
+										},
+							tooltip : {
+															trigger: 'item',
+															formatter: "{a} <br/>{b} : {d}%",
+															position:function(p){ //其中p为当前鼠标的位置
+												return [p[0] + 30, p[1] + 20];
+											},
+									},
+							legend: {
+													data:['Stable','Ustable','REM'],
+													textStyle: {color: 'w'},
+													orient: 'horizontal',
+											x: 'center', // 'center' | 'left' | {number},
+											y: '75%', // 'center' | 'bottom' | {number}
+											width:200,
+										height:30,
+										itemWidth: 20,
+											itemHeight: 10,
+											itemGap: 10
+										},
+							series : 
+									{
+											name: '睡眠状态占比',
+											type: 'pie',
+											radius: ['0','50%'],
+											center: ['50%', '45%'],
+									width:'50%',
+											data:[
+													{value:pie1data[0], name:'Stable'},
+													{value:pie1data[1], name:'Ustable'},
+													{value:pie1data[2], name:'REM'}
+											],
+											itemStyle: {
+														normal: {
+															label: {
+																	show: false
+														}
+												},
+												labelLine: {
+												show: false
+										}
+										}
+									},
+							color : ['rgb(218, 112, 214)','rgb(255, 127, 80)','rgb(100, 149, 237)']
+					};
+					myChart.setOption(option);				
+					};
+				
+				</script>   	 
+				
+				<div id="饼图2" class="model2"></div>
+				<script type="text/javascript">
+					function initpie2(){
+						// 引入 ECharts 主模块
+					var myChart2 = echarts.init(document.getElementById('饼图2'));
+					// 绘制图表
+					var option2 = {
+							//backgroundColor: '#2c343c',//背景色
+							title : {
+													text: '睡眠中体位占比',
+													x:'center',
+													y:'5%',
+													width:'50%',
+													textStyle:{
+														fontSize:14,
+														//字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+												fontWeight:500
+											}
+										},
+							tooltip : {
+															trigger: 'item',
+															formatter: "{a} <br/>{b} : {d}%"
+									},
+							legend: {
+													data:['Up','P','R','S','L'],
+													textStyle: {color: 'w'},
+													orient: 'horizontal',
+											x: 'center', // 'center' | 'left' | {number},
+											y: '75%', // 'center' | 'bottom' | {number}
+											width:200,
+										height:30,
+										itemWidth: 20,
+											itemHeight: 10,
+											itemGap: 10
+										},
+							series : 
+									{
+											name: '睡眠中体位占比',
+											type: 'pie',
+											radius: ['0','50%'],
+											center: ['50%', '45%'],
+									width:'50%',
+											data:[
+													{value:pie2data[0], name:'Up'},
+													{value:pie2data[1], name:'P'},
+													{value:pie2data[2], name:'R'},
+													{value:pie2data[3], name:'S'},
+													{value:pie2data[4], name:'L'}
+											],
+											//roseType: 'angle',//显示成南丁格尔图
+											itemStyle: {
+													normal: {
+														label: {
+																show: false
+														}
+												}
+											},
+											labelLine: {
+											show: false
+									}
+									},
+							color : ['rgb(218, 112, 214)','rgb(50, 205, 50)','rgb(100, 149, 237)','rgb(255, 127, 80)','rgb(135, 206, 250)']
+					};
+					myChart2.setOption(option2);
+					};	    	
+			</script>
+			</div>
     	<div id="main">
     		<div id="RR" class="model"></div>
     		<div id="PSD" class="model"></div>
 				<div id="RRI" class="model"></div>
     		<div id="DFA" class="model"></div>
-    		<div style="height: 800px;"></div>
     		<script type="text/javascript">
     			function initRR(){
     				var myChart_RR = echarts.init(document.getElementById('RR'));
@@ -83,6 +221,7 @@
 										    tooltip : {
 										        trigger: 'axis'
 										    },
+												animation: false,//关闭动画效果
 										    xAxis : [
 										        {
 										            type : 'value',
@@ -141,6 +280,7 @@
 								    '#B5B5B5', '#cd5c5c', '#32cd32'
 								],
 					    calculable : false,//拖拽重计算功能
+							animation: false,//关闭动画效果
 					    xAxis : [
 					        {
 					            type : 'value',
@@ -257,6 +397,7 @@
 						    }
 							},
 							color:  [ 'blue'],
+							animation: false,//关闭动画效果
 							xAxis : [
 									{
 											type : 'value',
@@ -348,6 +489,7 @@
 					function initRRI(){
 						var myChart_RRI = echarts.init(document.getElementById('RRI'));
 						var optionchart_RRI = {
+								animation: false,//关闭动画效果
 								title : {
 												text: 'Poincare Plot',
 												x: 'center',
@@ -386,8 +528,8 @@
 												type : 'value',
 												scale:true,
 												name:'RRn(ms)',
-							        nameLocation:'middle',
-							        nameTextStyle:{
+							        	nameLocation:'middle',
+							        	nameTextStyle:{
 							            color:"black", 
 							            fontSize:18,  
 							            padding:12
@@ -419,7 +561,7 @@
 													data: [
 														[
 															{
-																	coord: [1492,718],
+																	coord: RRISDxy[0],
 																	symbol: 'none'
 															},
 															{
@@ -430,17 +572,18 @@
 																			position:'end',
 																			formatter: '{b}',
 																			verticalAlign:'bottom',
-																			fontSize:20
+																			fontSize:20,
+																			color:'red'
 																		}
 																	},
-																	coord: [718,1492],
+																	coord: RRISDxy[1],
 																	lineStyle: { normal:{type: 'solid', color:'black' ,width:1}},
 																	symbol: 'arrow'
 															}
 														],
 														[
 															{
-																	coord: [RRIMin,RRIMin],
+																	coord: RRISDxy[2],
 																	symbol: 'none'
 															},
 															{
@@ -451,11 +594,12 @@
 																			position:'end',
 																			formatter: '{b}',
 																			verticalAlign:'bottom',
-																			fontSize:20
+																			fontSize:20,
+																			color:'green'
 																		}
 																	},
-																	coord: [RRIMax,RRIMax],
-																	lineStyle: { normal:{type: 'solid', color:'green' ,width:1}},
+																	coord: RRISDxy[3],
+																	lineStyle: { normal:{type: 'solid', color:'black' ,width:1}},
 																	symbol: 'arrow'
 															}
 														]
@@ -471,11 +615,46 @@
 											z:3,
 											lineStyle: {width:3}
 										}
-								],
+								]
 						};
 						myChart_RRI.setOption(optionchart_RRI);
 					}
 				</script>
+				<script type="text/javascript">
+					var RRI_data,
+							PSDdata_VLF,PSDdata_LF,PSDdata_HF,
+							Poincaredata,RRIMax,RRIMean,RRIMin,RRIellipse,RRISDxy,
+							DFAdata, DFAakb;
+					$.ajaxSettings.async = false;//------设置getJson同步(false:同步；true：异步)
+					$.getJSON("./HRVdata.json", "", function(data) {
+								RRI_data = data.settings[0].RRI_data;
+								
+								PSDdata_VLF = data.settings[1].PSDdata_VLF;
+								PSDdata_LF = data.settings[2].PSDdata_LF;
+								PSDdata_HF = data.settings[3].PSDdata_HF;
+								
+								Poincaredata = data.settings[4].RRIdata;
+								var PoincareMarkdata = data.settings[5].RRImarkdata;
+								RRIMax = PoincareMarkdata[0];
+								RRIMean = PoincareMarkdata[1];
+								RRIMin = PoincareMarkdata[2];
+								RRISDxy = data.settings[6].RRISDdata;
+								RRIellipse = data.settings[7].RRIellipse;
+								
+								console.log(Poincaredata);
+								
+								DFAdata = data.settings[8].DFAdata;
+								DFAakb = data.settings[9].DFAakb;
+								
+								initRR();
+								initPSD();
+								initDFA();
+								initRRI();
+								
+								
+					});
+				</script>
+				<div style="height: 800px;"></div>
     	</div>
 	</body>
 </html>
