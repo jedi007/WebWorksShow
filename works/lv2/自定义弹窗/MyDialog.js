@@ -1,6 +1,41 @@
 ;(function(){
+	function extend(target, source) {
+		for (var obj in source) {
+			target[obj] = source[obj];
+		}
+		return target;
+	}
+	
 	function MyDialog(){
+		var _this=this;
+		this.settings = {
+			_this:this,
+			title:"信息",
+			content:"提示信息",
+			width:300,
+			height:200,
+			btnWidth:60,
+			btnHeight:25,
+			OK_btntitle:"OK",
+			OK_cb:function(){
+				console.log("我是默认OK 回调");
+				this._this.dialogdiv.style.display    = 'none';//这里this指向的是settings本身
+				this._this.pageCoverDiv.style.display = 'none';
+			},
+			OK_hide:false,
+			Cancel_btntitle:"Cancel",
+			Cancel_cb:function(){
+				console.log("我是默认Cancel 回调");
+				this._this.dialogdiv.style.display    = 'none';//这里this指向的是settings本身
+				this._this.pageCoverDiv.style.display = 'none';
+			},
+			Cancel_hide:false,
+			Closebtn_hide:true,
+			PageCover_hide:false
+		};
+		
 		this.init();
+		this.loadsetings();
 	}
 	
 	MyDialog.prototype = {
@@ -19,19 +54,16 @@
 			this.contentdiv.innerHTML = "信息提示框";
 			
 			this.dialogdiv = document.createElement("div");
-			this.dialogdiv.style =  "width:300px;height: 200px; position:fixed;margin:auto;top:  0;bottom: 0;left: 0;right: 0;"+
-								    "z-index: 999;box-shadow: 2px 2px 4px #ccc; background-color: #f1f1f1; border: solid 1px #aaa;"+
-								    "border-radius: 4px; overflow: hidden;display:none";
-									
-			this.btnSize = {width:60,height:25};
+			this.dialogdiv.style =  "position:fixed;margin:auto;top:  0;bottom: 0;left: 0;right: 0;"+
+									"z-index: 999;box-shadow: 2px 2px 4px #ccc; background-color: #f1f1f1; border: solid 1px #aaa;"+
+									"border-radius: 4px; overflow: hidden;display:none";
 			
 			this.btnOK = document.createElement("button");
-			this.btnOK.style =  "width:" + this.btnSize.width +"px;height:" + this.btnSize.height + 
-													"px;position:absolute;bottom: 5px;right: "+ (this.btnSize.width+10) +"px;";
+			this.btnOK.style =  "position:absolute;bottom: 5px;";
 			this.btnOK.innerHTML = "OK";
 			
 			this.btnCancel = document.createElement("button");
-			this.btnCancel.style =  "width:" + this.btnSize.width +"px;height:" + this.btnSize.height + "px;position:absolute;bottom: 5px;right: 5px;";
+			this.btnCancel.style =  "position:absolute;bottom: 5px;right: 5px;";
 			this.btnCancel.innerHTML = "Cancel";
 			
 			this.dialogdiv.appendChild(this.closespan);
@@ -43,85 +75,76 @@
 			this.pageCoverDiv = document.createElement("div");
 			this.pageCoverDiv.style = "width: 100%; height: 100%; position: fixed; top:0;z-index: 998; "+
 									  "background-color: #666; opacity: 0.5; display: none;";
-			this.bPageCoverShow = true;
 			
 			document.body.appendChild(this.dialogdiv);
 			document.body.appendChild(this.pageCoverDiv);
 		},
-		show:function(){
-			this.dialogdiv.style.display='block';
-			if(this.bPageCoverShow)
-				this.pageCoverDiv.style.display = 'block';
-		},
-		close:function(){
-			console.log("close is clicked");
-			this.parentNode.style.display='none';
-			this.parentNode.nextSibling.style.display='none';
-		},
-		setTitle:function(title){
-			this.titlediv.innerHTML = title;
-		},
-		setContent:function(content){
-			this.contentdiv.innerHTML = content;
-		},
-		setSize:function(width,height){
-			var swidth = width?width:300;
-			var sheight = height?height:200;
-			this.dialogdiv.style.width = swidth+'px';
-			this.dialogdiv.style.height = sheight+'px';
-		},
-		setOK_cb:function(cb){
-			this.btnOK.onclick = function(){
-				cb();
-				this.parentNode.style.display='none';
+		loadsetings:function(){
+			var sets = this.settings;
+			
+			this.titlediv.innerHTML   = sets.title;
+			this.contentdiv.innerHTML = sets.content;
+			
+			this.dialogdiv.style.width  = sets.width+'px';
+			this.dialogdiv.style.height = sets.height+'px';
+			
+			this.btnOK.style.width  = sets.btnWidth+'px';
+			this.btnOK.style.height = sets.btnHeight+'px';
+			this.btnOK.style.right  = (sets.btnWidth+10)+'px';
+			
+			this.btnCancel.style.width  = sets.btnWidth+'px';
+			this.btnCancel.style.height = sets.btnHeight+'px';
+			
+			this.btnOK.innerHTML = sets.OK_btntitle;
+			this.btnOK.onclick   = function(){
+				this.parentNode.style.display='none';//里面的this是指向btnOK的
 				this.parentNode.nextSibling.style.display='none';
+				sets.OK_cb();
 			}
-		},
-		setOK_hide:function(bh){
-			if(bh)
+			if(sets.OK_hide)
 				this.btnOK.style.display = 'none';
 			else
 				this.btnOK.style.display = 'block';
-		},
-		setCancel_cb:function(cb){
+				
+			this.btnCancel.innerHTML = sets.Cancel_btntitle;
 			this.btnCancel.onclick = function(){
-				cb();
-				this.parentNode.style.display='none';
+				this.parentNode.style.display='none';//里面的this是指向btnCancel的
 				this.parentNode.nextSibling.style.display='none';
+				sets.Cancel_cb();
 			}
-		},
-		setCancel_hide:function(bh){
-			if(bh)
+			if(sets.Cancel_hide)
 			{
 				this.btnCancel.style.display = 'none';
-				this.btnOK.style.right = '5px';
+				this.btnOK.style.right       = '5px';
 			}
 			else
 			{
 				this.btnCancel.style.display = 'block';
-				this.btnOK.style.right = (this.btnSize.width+10)+'px';
+				this.btnOK.style.right       = (this.settings.btnWidth+10)+'px';
 			}
-		},
-		setPageCover_hide:function(bh){
-			if(bh)
-			{
-				this.pageCoverDiv.style.display = 'none';
-				this.bPageCoverShow = false;
-			}
-			else
-			{
-				this.pageCoverDiv.style.display = 'block';
-				this.bPageCoverShow = true;
-			}
-		},
-		setClosebtn_hide:function(bh){
-			if(bh)
+			
+			if(sets.Closebtn_hide)
 				this.closespan.style.display = 'none';
 			else
 				this.closespan.style.display = 'block';
+		},
+		show:function(){
+			this.dialogdiv.style.display='block';
+			if(!this.settings.PageCover_hide)
+				this.pageCoverDiv.style.display = 'block';
+		},
+		close:function(){
+			this.parentNode.style.display             = 'none';
+			this.parentNode.nextSibling.style.display = 'none';
+		},
+		setsettings:function(obj){
+			if(typeof(obj) == "object")
+			{
+				extend(this.settings, obj);
+				this.loadsetings();
+			}
 		}
 	}
-	
 	
 	window.creatMyDialog = function(){
 		return new MyDialog();

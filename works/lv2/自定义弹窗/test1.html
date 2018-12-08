@@ -29,27 +29,22 @@ body{ margin:0; padding:0;}
 
 var myinfodialog = creatMyDialog();
 function openMyDialog(){
-	myinfodialog.setTitle("测试信息");
-	myinfodialog.setContent("信息提示内容测试");
-	myinfodialog.setSize(600,400);
-	myinfodialog.setSize();
-	
-	myinfodialog.setOK_cb(function(){
-		console.log("im okcb");
+	myinfodialog.setsettings({aaa:"aaa1",
+								width:600,height:400,
+								title:"新的标题栏",content:"新的提示内容",
+								btnWidth:80,btnHeight:35,
+								OK_btntitle:"新OK",
+								OK_cb:function(){
+									console.log("我是新的OK回调函数");
+								},
+								OK_hide:false,
+								
+								Cancel_btntitle:"新Cancel",
+								
+								Cancel_hide:false,
+								Closebtn_hide:false,
+								PageCover_hide:false
 	});
-	
-	myinfodialog.setCancel_cb(function(){
-		console.log("im Cancel cb");
-	});
-	
-	myinfodialog.setCancel_hide(true);
-	myinfodialog.setCancel_hide(false);
-	
-	myinfodialog.setClosebtn_hide(true);
-	
-	//myinfodialog.setPageCover_hide(true);
-	
-	
 	myinfodialog.show();
 }
 </script>
