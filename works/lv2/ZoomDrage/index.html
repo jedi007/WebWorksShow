@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			
+			#test{
+				
+				height: 300px;
+				width: 300px;
+				left: 200px;
+				top:200px;
+				position: absolute;
+			}
+			.testclass{
+				background-color: #636363;
+				position: absolute;width:100%;height:20px;top:-20px;
+			}
+		</style>
+		<script src="js/jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ZoomDrag.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="test">
+			
+		</div>
+		<script type="text/javascript">
+			var pie1data = [0,78.3,21.7];
+			function initpie1(){
+				// 引入 ECharts 主模块
+				var myChart = echarts.init(document.getElementById('test'));
+				// 绘制图表
+				var option = {
+					//backgroundColor: '#2c343c',//背景色
+					title : {
+								text: '睡眠状态占比',
+								x:'center',
+								y:'5%',
+								width:'50%',
+								textStyle:{
+									fontSize:14,
+									//字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+									fontWeight:500
+								}
+						},
+					tooltip : {
+										trigger: 'item',
+										formatter: "{a} <br/>{b} : {d}%",
+										position:function(p){ //其中p为当前鼠标的位置
+											return [p[0] + 30, p[1] + 20];
+										},
+							},
+					legend: {
+								data:['Stable','Ustable','REM'],
+								textStyle: {color: 'w'},
+								orient: 'horizontal',
+								x: 'center', // 'center' | 'left' | {number},
+								y: '75%', // 'center' | 'bottom' | {number}
+								width:200,
+								height:30,
+								itemWidth: 20,
+								itemHeight: 10,
+								itemGap: 10
+						},
+					series : 
+						{
+							name: '睡眠状态占比',
+							type: 'pie',
+							radius: ['0','50%'],
+							center: ['50%', '45%'],
+							width:'50%',
+							data:[
+								{value:pie1data[0], name:'Stable'},
+								{value:pie1data[1], name:'Ustable'},
+								{value:pie1data[2], name:'REM'}
+							],
+							itemStyle: {
+									normal: {
+									label: {
+										show: false
+									}
+								},
+								labelLine: {
+									show: false
+								}
+							}
+						},
+					color : ['rgb(218, 112, 214)','rgb(255, 127, 80)','rgb(100, 149, 237)']
+				};
+				myChart.setOption(option);				
+			};
+			initpie1();
+		</script>
+		<script type="text/javascript">
+ 			var vzoomer = new Zoomer(document.getElementById("test"));
+ 			vzoomer.setsettings({MaxWidth: 900});
+			
+			var vdrager = new Drager(document.getElementById("test"));
+			vdrager.settitleclass("testclass");
+		</script>
+	</body>
+</html>

@@ -79,3 +79,11 @@ Math.pow(6,4)=1296
 Math.pow(1296,1/4)=6
 Math.log(1296)/Math.log(6)=4
 */
+
+//扩展json对象（浅拷贝）
+function extend(target, source) {
+	for (var obj in source) {
+		target[obj] = source[obj];
+	}
+	return target;
+}
