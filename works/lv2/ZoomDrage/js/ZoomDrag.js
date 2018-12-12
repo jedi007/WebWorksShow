@@ -27,7 +27,8 @@ function Zoomer(div){
 		MinWidth:15,
 		MinHeight:15,
 		MaxWidth: 500,
-		MaxHeight:500
+		MaxHeight:500,
+		onResize:null
 	};
 	
 	this.setsettings = function(obj){
@@ -62,6 +63,8 @@ function Zoomer(div){
 			if(tH > settings.MaxHeight) tH = settings.MaxHeight;
 			div.style.width = tW+"px";
 			div.style.height = tH+"px";
+			if(settings.onResize)
+				settings.onResize();
 　　　　 };
 		
 		document.onmouseup = function(){

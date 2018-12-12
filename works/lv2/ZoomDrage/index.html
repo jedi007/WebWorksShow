@@ -28,9 +28,10 @@
 		</div>
 		<script type="text/javascript">
 			var pie1data = [0,78.3,21.7];
+			var myChart = null;
 			function initpie1(){
 				// 引入 ECharts 主模块
-				var myChart = echarts.init(document.getElementById('test'));
+				myChart = echarts.init(document.getElementById('test'));
 				// 绘制图表
 				var option = {
 					//backgroundColor: '#2c343c',//背景色
@@ -95,7 +96,13 @@
 		</script>
 		<script type="text/javascript">
  			var vzoomer = new Zoomer(document.getElementById("test"));
- 			vzoomer.setsettings({MaxWidth: 900});
+ 			vzoomer.setsettings({
+				MaxWidth: 900,
+				onResize:function(){
+					if(myChart)
+						myChart.resize();
+				}
+			});
 			
 			var vdrager = new Drager(document.getElementById("test"));
 			vdrager.settitleclass("testclass");
