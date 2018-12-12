@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>testcharts</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.model{
+				border: 5px solid #EAEAEA;
+				position: absolute;
+			}
+			#main{
+				position: absolute;
+				width:100%;
+				height: 100%;
+			}
+			body{
+				overflow: hidden;
+			}
+			.arrow-btn{
+				position:absolute;
+				width:40px;height:100%; 
+				cursor:pointer;  
+				opacity:0.3; 
+				z-index:2;
+			}
+			.arrow-btn:hover{
+				opacity:1; 
+				background-color: rgba(230,230,250,0.6);
+			}
+			.lbtn{
+				top:0;left:0; 
+				background: url('btn_l.png') no-repeat center center;
+			}
+			.rbtn{
+				top:0;right:0; 
+				background: url('btn_r.png') no-repeat center center;
+			}
+		</style>
+		<script src="jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="piesetting.js" type="text/javascript" charset="utf-8"></script>
+		<script src="HRVdata.js" type="text/javascript" charset="utf-8"></script>
+		<script src="HRVoptions.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 		src="../../../echarts.js"      此方法应可减少缓存量 -->
+		<script type="text/javascript">
+			titlesize = 18,tpadding = 20,xtitlesize = 18,ytitlesize = 18,xlabelsize = 12,ylabelsize = 12,
+			xtpadding = 16, ytpadding = 35,ylbrotate = 0,xlbrotate = 0,
+			gridl = '13%',gridr = '10%',gridtop = '10%',gridb = '9%',
+			PSDlegY = '35px',PSDlegsize = 14, PSDlegWidth = 40, PSDlegHeight = 20,
+			RRIpsize = 4,RRIellipsewidth = 3,SDtsize = 16,
+			DFApsize = 4,DFAlwidth = 2,DFAtsize = 18,DFAtpadding = 15;
+		</script>
+	</head>
+	<body>
+		<!-- <div style="width: 100%;height: 50%;background-color: red;position: absolute;z-index: 99;"> </div>-->
+		<div class="arrow-btn lbtn" onclick="lclicked()"></div>
+    	<div id="main">
+	    	<div id="饼图1" class="model"></div>
+	    	<div id="饼图2" class="model"></div>
+			<div id="RR" class="model"></div>
+			<div id="PSD" class="model"></div>
+			<div id="RRI" class="model"></div>
+			<div id="DFA" class="model"></div>
+		</div>
+		<div class="arrow-btn rbtn" onclick="rclicked()" ></div>
+			
+		<script type="text/javascript">
+			var Mleft=Mwidth=Mheight=0;
+			
+			function initpie1(){
+				// 引入 ECharts 主模块
+				var myChart = echarts.init(document.getElementById('饼图1'));
+				// 绘制图表
+				var option = {
+					//backgroundColor: '#2c343c',//背景色
+					title : {
+								text: '睡眠状态占比',
+								x:'center',
+								y:'5%',
+								width:'50%',
+								textStyle:{
+									fontSize:14,
+									//字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+									fontWeight:500
+								}
+						},
+					tooltip : {
+										trigger: 'item',
+										formatter: "{a} <br/>{b} : {d}%",
+										position:function(p){ //其中p为当前鼠标的位置
+											return [p[0] + 30, p[1] + 20];
+										},
+							},
+					legend: {
+								data:['Stable','Ustable','REM'],
+								textStyle: {color: 'w'},
+								orient: 'horizontal',
+								x: 'center', // 'center' | 'left' | {number},
+								y: '75%', // 'center' | 'bottom' | {number}
+								width:200,
+								height:30,
+								itemWidth: 20,
+								itemHeight: 10,
+								itemGap: 10
+						},
+					series : 
+						{
+							name: '睡眠状态占比',
+							type: 'pie',
+							radius: ['0','50%'],
+							center: ['50%', '45%'],
+							width:'50%',
+							data:[
+								{value:pie1data[0], name:'Stable'},
+								{value:pie1data[1], name:'Ustable'},
+								{value:pie1data[2], name:'REM'}
+							],
+							itemStyle: {
+									normal: {
+									label: {
+										show: false
+									}
+								},
+								labelLine: {
+									show: false
+								}
+							}
+						},
+					color : ['rgb(218, 112, 214)','rgb(255, 127, 80)','rgb(100, 149, 237)']
+				};
+				myChart.setOption(option);				
+			};
+			
+			function initpie2(){
+				// 引入 ECharts 主模块
+				var myChart2 = echarts.init(document.getElementById('饼图2'));
+				// 绘制图表
+				var option2 = {
+					//backgroundColor: '#2c343c',//背景色
+					title : {
+								text: '睡眠中体位占比',
+								x:'center',
+								y:'5%',
+								width:'50%',
+								textStyle:{
+									fontSize:14,
+									//字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+									fontWeight:500
+								}
+						},
+					tooltip : {
+										trigger: 'item',
+										formatter: "{a} <br/>{b} : {d}%"
+							},
+					legend: {
+								data:['Up','P','R','S','L'],
+								textStyle: {color: 'w'},
+								orient: 'horizontal',
+								x: 'center', // 'center' | 'left' | {number},
+								y: '75%', // 'center' | 'bottom' | {number}
+								width:200,
+								height:30,
+								itemWidth: 20,
+								itemHeight: 10,
+								itemGap: 10
+						},
+					series : 
+						{
+							name: '睡眠中体位占比',
+							type: 'pie',
+							radius: ['0','50%'],
+							center: ['50%', '45%'],
+							width:'50%',
+							data:[
+								{value:pie2data[0], name:'Up'},
+								{value:pie2data[1], name:'P'},
+								{value:pie2data[2], name:'R'},
+								{value:pie2data[3], name:'S'},
+								{value:pie2data[4], name:'L'}
+							],
+							//roseType: 'angle',//显示成南丁格尔图
+							itemStyle: {
+								normal: {
+								label: {
+									show: false
+									}
+								}
+							},
+							labelLine: {
+								show: false
+							}
+						},
+					color : ['rgb(218, 112, 214)','rgb(50, 205, 50)','rgb(100, 149, 237)','rgb(255, 127, 80)','rgb(135, 206, 250)']
+				};
+				myChart2.setOption(option2);
+			};	
+			
+			var timerID = 0;
+			window.onload = function(){
+				timerID = setInterval(function(){
+					Mwidth = $("#main").width();
+					Mheight = $("#main").height();
+					if(Mheight>50)//饼图区plot好之前,size很小
+					{
+						clearInterval(timerID);
+						$(".model").each(function(index){
+							$(this).width( (Mwidth-20)/2 );
+							$(this).height( Mheight-10 );
+							$(this).css({left:index*Mwidth/2 });
+						});
+						initpie1();
+						initpie2();
+						
+						initRR();
+						initPSD();
+						initRRI();
+						initDFA();
+					}
+				},100);
+			}
+			function lclicked(){
+				Mleft -= Mwidth/2;
+				if(Mleft < -2*Mwidth)
+					Mleft = -2*Mwidth;
+				else
+					$("#main").animate({left:Mleft+"px"},1000);
+			}
+			function rclicked(){
+				Mleft += Mwidth/2;
+				if(Mleft > 0) 
+					Mleft = 0;
+				else
+					$("#main").animate({left:Mleft+"px"},1000);
+			}
+		</script>   
+	</body>
+</html>
