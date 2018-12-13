@@ -25,28 +25,27 @@ body{ margin:0; padding:0;}
 	
 </div>
 <a href="test1.html">a test</a>
-<script type="text/javascript">            
-
-var myinfodialog = creatMyDialog();
-function openMyDialog(){
-	myinfodialog.setsettings({aaa:"aaa1",
-								width:600,height:400,
-								title:"新的标题栏",content:"新的提示内容",
-								btnWidth:80,btnHeight:35,
-								OK_btntitle:"新OK",
-								OK_cb:function(){
-									console.log("我是新的OK回调函数");
-								},
-								OK_hide:false,
-								
-								Cancel_btntitle:"新Cancel",
-								
-								Cancel_hide:false,
-								Closebtn_hide:false,
-								PageCover_hide:false
-	});
-	myinfodialog.show();
-}
+<script type="text/javascript">       
+	var myinfodialog = creatMyDialog();
+	function openMyDialog(){
+		myinfodialog.setsettings({aaa:"aaa1",
+									width:600,height:400,
+									title:"新的标题栏",content:"新的提示内容",
+									btnWidth:80,btnHeight:35,
+									OK_btntitle:"新OK",
+									OK_cb:function(){
+										console.log("我是新的OK回调函数");
+									},
+									OK_hide:false,
+									
+									Cancel_btntitle:"新Cancel",
+									
+									Cancel_hide:false,
+									Closebtn_hide:false,
+									PageCover_hide:false
+		});
+		myinfodialog.show();
+	}
 </script>
 </body>
 </html> 
