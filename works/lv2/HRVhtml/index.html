@@ -4,22 +4,16 @@
 		<meta charset="utf-8" />
 		<title>testcharts</title>
 		<style type="text/css">
-			*{
-				margin: 0;
-				padding: 0;
-			}
+			*{margin: 0;padding: 0;}
+			body{overflow: hidden;}
 			.model{
 				border: 5px solid #EAEAEA;
 				position: absolute;
-			}
-			#main{
-				position: absolute;
-				width:100%;
+				box-sizing: border-box;
+				width: 50%;
 				height: 100%;
 			}
-			body{
-				overflow: hidden;
-			}
+			#main{position: absolute;width:100%;height: 100%;}
 			.arrow-btn{
 				position:absolute;
 				width:40px;height:100%; 
@@ -39,6 +33,30 @@
 				top:0;right:0; 
 				background: url('btn_r.png') no-repeat center center;
 			}
+			ul{
+				list-style: none;
+				width: 170px;
+				height: 30px;
+				position: absolute;
+				bottom: 10px;
+				margin: auto;
+				position: absolute;
+				left: 0;
+				right: 0;
+				display: none;
+			}
+			li{
+				background-color: #BEBEBE;
+				width: 14px;/* 1/6 */
+				height: 14px;
+				float: left;
+				margin-left: 14px;
+				border-radius: 7px;
+			}
+			.activeli{
+				background-color: #1E90FF;
+				box-shadow: 0 0 10px 2px #1E90FF;
+			}
 		</style>
 		<script src="jquery.3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="echarts.min.js" type="text/javascript" charset="utf-8"></script>
@@ -46,14 +64,6 @@
 		<script src="HRVdata.js" type="text/javascript" charset="utf-8"></script>
 		<script src="HRVoptions.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 		src="../../../echarts.js"      此方法应可减少缓存量 -->
-		<script type="text/javascript">
-			titlesize = 18,tpadding = 20,xtitlesize = 18,ytitlesize = 18,xlabelsize = 12,ylabelsize = 12,
-			xtpadding = 16, ytpadding = 35,ylbrotate = 0,xlbrotate = 0,
-			gridl = '13%',gridr = '10%',gridtop = '10%',gridb = '9%',
-			PSDlegY = '35px',PSDlegsize = 14, PSDlegWidth = 40, PSDlegHeight = 20,
-			RRIpsize = 4,RRIellipsewidth = 3,SDtsize = 16,
-			DFApsize = 4,DFAlwidth = 2,DFAtsize = 18,DFAtpadding = 15;
-		</script>
 	</head>
 	<body>
 		<!-- <div style="width: 100%;height: 50%;background-color: red;position: absolute;z-index: 99;"> </div>-->
@@ -67,6 +77,14 @@
 			<div id="DFA" class="model"></div>
 		</div>
 		<div class="arrow-btn rbtn" onclick="rclicked()" ></div>
+		<ul id="label">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
 			
 		<script type="text/javascript">
 			var Mleft=Mwidth=Mheight=0;
@@ -201,6 +219,8 @@
 			
 			var timerID = 0;
 			window.onload = function(){
+				$("#label>li").eq(0).addClass("activeli");
+				$("#label>li").eq(1).addClass("activeli");
 				timerID = setInterval(function(){
 					Mwidth = $("#main").width();
 					Mheight = $("#main").height();
@@ -208,8 +228,6 @@
 					{
 						clearInterval(timerID);
 						$(".model").each(function(index){
-							$(this).width( (Mwidth-20)/2 );
-							$(this).height( Mheight-10 );
 							$(this).css({left:index*Mwidth/2 });
 						});
 						initpie1();
@@ -222,19 +240,31 @@
 					}
 				},100);
 			}
-			function lclicked(){
+			function rclicked(){
 				Mleft -= Mwidth/2;
 				if(Mleft < -2*Mwidth)
 					Mleft = -2*Mwidth;
 				else
-					$("#main").animate({left:Mleft+"px"},1000);
+					action();
 			}
-			function rclicked(){
+			function lclicked(){
 				Mleft += Mwidth/2;
 				if(Mleft > 0) 
 					Mleft = 0;
 				else
-					$("#main").animate({left:Mleft+"px"},1000);
+					action();
+			}
+			$(".arrow-btn").hover(function(){
+				$("#label").css("display","block");
+			},function(){
+				$("#label").css("display","none");
+			});
+			function action(){
+				$("#main").animate({left:Mleft+"px"},1000);
+				var index = -Mleft/(Mwidth/2);
+				$("#label>li").removeClass("activeli");
+				$("#label>li").eq(index).addClass("activeli");
+				$("#label>li").eq(index+1).addClass("activeli");
 			}
 		</script>   
 	</body>
